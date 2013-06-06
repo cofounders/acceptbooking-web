@@ -8,14 +8,14 @@ define([
 	return Backbone.Router.extend({
 
 		routes: {
-			'': 'landing',
+			// '': 'landing',
 			'login': 'login',
 			'drivers/network': 'network',
 			'account/welcome': 'setup',
 			'bookings/current': 'current',
 			'bookings/schedule': 'schedule',
 			'bookings/available': 'available',
-			'*path': '404'
+			// '*path': '404'
 		},
 
 		landing: function () {
