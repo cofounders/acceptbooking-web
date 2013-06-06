@@ -22,6 +22,10 @@ function ($, _, Backbone, app,
 		template: 'layouts/login'
 	});
 
+	Views.Menu = Views.Base.extend({
+		template: 'layouts/menu'
+	});
+
 	Views.Network = Views.Base.extend({
 		template: 'layouts/network'
 	});
@@ -30,8 +34,16 @@ function ($, _, Backbone, app,
 		template: 'layouts/setup'
 	});
 
+	Views.Add = Views.Base.extend({
+		template: 'layouts/add'
+	});
+
 	Views.Current = Views.Base.extend({
 		template: 'layouts/current'
+	});
+
+	Views.Assigned = Views.Base.extend({
+		template: 'layouts/assigned'
 	});
 
 	Views.Schedule = Views.Base.extend({

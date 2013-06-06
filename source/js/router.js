@@ -8,14 +8,17 @@ define([
 	return Backbone.Router.extend({
 
 		routes: {
-			// '': 'landing',
+			'': 'landing',
 			'login': 'login',
+			'menu': 'menu',
 			'drivers/network': 'network',
 			'account/welcome': 'setup',
+			'bookings/add': 'add',
 			'bookings/current': 'current',
+			'bookings/assigned': 'assigned',
 			'bookings/schedule': 'schedule',
 			'bookings/available': 'available',
-			// '*path': '404'
+			'*path': '404'
 		},
 
 		landing: function () {
@@ -26,6 +29,12 @@ define([
 
 		login: function () {
 			app.useLayout(Layouts.Views.Login, {
+			}).setViews({
+			}).render();
+		},
+
+		menu: function () {
+			app.useLayout(Layouts.Views.Menu, {
 			}).setViews({
 			}).render();
 		},
@@ -42,8 +51,20 @@ define([
 			}).render();
 		},
 
+		add: function () {
+			app.useLayout(Layouts.Views.Add, {
+			}).setViews({
+			}).render();
+		},
+
 		current: function () {
 			app.useLayout(Layouts.Views.Current, {
+			}).setViews({
+			}).render();
+		},
+
+		assigned: function () {
+			app.useLayout(Layouts.Views.Assigned, {
 			}).setViews({
 			}).render();
 		},
