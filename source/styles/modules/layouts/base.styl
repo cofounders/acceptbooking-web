@@ -7,18 +7,7 @@
 		height 45px
 		background-image url('/img/header-bg.jpg')
 		background-size auto 45px
-		> a.menu
-			background-image url('/img/icn-menu.png'),
-				url('/img/header-bg.jpg')
-			background-size 19.5px auto,
-				auto 45px
-			width 19.5px
-		> a.network
-			background-image url('/img/icn-network.png'),
-				url('/img/header-bg.jpg')
-			background-size 22.5px auto,
-				auto 45px
-			width 22.5px
+
 		> a
 			border-image-source url('/img/btn-square-bg.png')
 			border-image-slice 8 15 6 15
@@ -31,27 +20,44 @@
 			display inline-block
 			box-sizing content-box
 			height 28px
-			min-width 10px
+			line-height 28px
 			overflow hidden
-			color transparent
 			position absolute
 			left 5px
 			top 5px
+			color #fff
+			font-family 'Open Sans', sans-serif
+			font-size 12px
+			font-weight bold
+			text-decoration none
 		> h1 ~ a
 			left auto
 			right 5px
-		/* Use rel="next" to show a pointer to the left */
-		> a[rel=prev]
+		> a[rel=prev] /* Use rel="next" to show a pointer to the left */
 			border-image-source url('/img/btn-arrow-bg.png')
 			border-image-slice 8 11 8 30
 			border-width 4px 5.5px 4px 15px
 			padding 0 7px 0 3px
-		/* Use rel="next" to show a pointer to the right */
-		> a[rel=next]
+		> a[rel=next] /* Use rel="next" to show a pointer to the right */
 			border-image-source url('/img/btn-arrow-right-bg.png')
 			border-image-slice 8 30 8 11
 			border-width 4px 15px 4px 5.5px
 			padding 0 3px 0 7px
+		> a.icon
+			color transparent
+		> a.menu
+			background-image url('/img/icn-menu.png'),
+				url('/img/header-bg.jpg')
+			background-size 19.5px auto,
+				auto 45px
+			width 19.5px
+		> a.network
+			background-image url('/img/icn-network.png'),
+				url('/img/header-bg.jpg')
+			background-size 22.5px auto,
+				auto 45px
+			width 22.5px
+
 		> h1
 			text-align center
 			font-size 24px
