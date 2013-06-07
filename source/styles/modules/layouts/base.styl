@@ -20,9 +20,10 @@
 				auto 45px
 			width 22.5px
 		> a
-			border-image-source url('/img/btn-arrow-bg.png')
-			border-image-slice 8 11 8 30
-			border-width 4px 5.5px 4px 15px
+			border-image-source url('/img/btn-square-bg.png')
+			border-image-slice 8 15 6 15
+			border-width 4px 7.5px 3px 7.5px
+			padding 0 5px 0 5px
 			background-clip content-box, padding-box
 			background-origin content-box
 			background-position center, center
@@ -31,7 +32,6 @@
 			box-sizing content-box
 			height 28px
 			min-width 10px
-			padding 0 4px 0 0
 			overflow hidden
 			color transparent
 			position absolute
@@ -40,6 +40,18 @@
 		> h1 ~ a
 			left auto
 			right 5px
+		/* Use rel="next" to show a pointer to the left */
+		> a[rel=prev]
+			border-image-source url('/img/btn-arrow-bg.png')
+			border-image-slice 8 11 8 30
+			border-width 4px 5.5px 4px 15px
+			padding 0 7px 0 3px
+		/* Use rel="next" to show a pointer to the right */
+		> a[rel=next]
+			border-image-source url('/img/btn-arrow-right-bg.png')
+			border-image-slice 8 30 8 11
+			border-width 4px 15px 4px 5.5px
+			padding 0 3px 0 7px
 		> h1
 			text-align center
 			font-size 24px
