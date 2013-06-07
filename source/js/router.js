@@ -23,9 +23,13 @@ define([
 		},
 
 		install: function () {
-			app.useLayout(Layouts.Views.Install, {
-			}).setViews({
-			}).render();
+			if (navigator.standalone === true) {
+				app.router.navigate('/', {trigger: true});
+			} else {
+				app.useLayout(Layouts.Views.Install, {
+				}).setViews({
+				}).render();
+			}
 		},
 
 		landing: function () {
