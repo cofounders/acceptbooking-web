@@ -4,38 +4,54 @@
 		top 0
 		left 0
 		right 0
-		height 50px
-		background-color pink
+		height 45px
+		background-image url('/img/header-bg.jpg')
+		background-size auto 45px
 		> a.menu
-			background-image url('../img/icn-menu.png')
+			background-image url('/img/icn-menu.png'),
+				url('/img/header-bg.jpg')
+			background-size 19.5px auto,
+				auto 45px
+			width 19.5px
 		> a.network
-			background-image url('../img/icn-network.png')
+			background-image url('/img/icn-network.png'),
+				url('/img/header-bg.jpg')
+			background-size 22.5px auto,
+				auto 45px
+			width 22.5px
 		> a
-			background-position center
-			background-size 50%
-			background-repeat no-repeat
+			border-image-source url('/img/btn-arrow-bg.png')
+			border-image-slice 8 11 8 30
+			border-width 4px 5.5px 4px 15px
+			background-clip content-box, padding-box
+			background-origin content-box
+			background-position center, center
+			background-repeat no-repeat, repeat
 			display inline-block
-			height 32px
-			width 40px
-			border-radius 5px
+			box-sizing content-box
+			height 28px
+			min-width 10px
+			padding 0 4px 0 0
 			overflow hidden
 			color transparent
-			background-color gray
 			position absolute
-			left 10px
-			top 10px
+			left 5px
+			top 5px
 		> h1 ~ a
 			left auto
-			right 10px
+			right 5px
 		> h1
 			text-align center
 			font-size 24px
 			padding 10px 0
 			margin 0
+			color #fff
+			font-family 'Open Sans', sans-serif
+			font-size 18px
+			font-weight 800
 
 	> article
-		margin 50px 0
-		padding 50px 0
+		margin 45px 0 50px 0
 		height 1000px
 
 	> footer
@@ -44,4 +60,5 @@
 		left 0
 		right 0
 		height 50px
-		background-color teal
+		background-image url('/img/footer-bg.jpg')
+		background-size auto 50px
