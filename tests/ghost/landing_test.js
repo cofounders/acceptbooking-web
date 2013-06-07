@@ -1,6 +1,5 @@
 casper.start(casper.cli.get('baseUrl'));
 
-
 casper.on('page.error', function (msg, trace) {
 	this.test.fail(msg);
 });
@@ -24,7 +23,7 @@ casper.waitForSelector('#app > *.layout:not(.loading)');
 
 casper.then(function () {
 	this.test.assertTitle(
-		'Accept Booking',
+		'Dashboard',
 		'Make sure the title is set'
 	);
 	this.test.assertExists(
