@@ -14,6 +14,10 @@ function ($, _, Backbone, app,
 		}
 	});
 
+	Views.Install = Views.Base.extend({
+		template: 'layouts/install'
+	});
+
 	Views.Landing = Views.Base.extend({
 		template: 'layouts/landing'
 	});

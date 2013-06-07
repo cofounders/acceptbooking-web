@@ -9,6 +9,7 @@ define([
 
 		routes: {
 			'': 'landing',
+			'install': 'install',
 			'login': 'login',
 			'menu': 'menu',
 			'drivers/network': 'network',
@@ -19,6 +20,12 @@ define([
 			'bookings/schedule': 'schedule',
 			'bookings/available': 'available',
 			'*path': '404'
+		},
+
+		install: function () {
+			app.useLayout(Layouts.Views.Install, {
+			}).setViews({
+			}).render();
 		},
 
 		landing: function () {
