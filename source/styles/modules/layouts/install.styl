@@ -1,5 +1,6 @@
 #app > .layout.install
 	background-image url('/img/bg-subtle_dots.png')
+	background-attachment fixed
 	min-height 100%
 	max-height 100%
 	overflow hidden
@@ -38,23 +39,21 @@
 
 @media (orientation: landscape)
 	#app > .layout.install
+		text-align left
 		> header
-			margin 0 0 0 -25px
-			padding-left 50%
-			text-align left
+			padding 15px 0 0 15px
 		> article
-			p
-				margin 0 0 0 -25px
-				padding-left 50%
-				text-align left
+			padding 0 0 0 15px
 			img
 				position absolute
 				top 15px
-				right 0
-				padding-right 50%
-				margin 0 40px 0 0
+				right 15px
 		> footer
+			text-align right
 			p
-				margin 0 0 0 -25px
-				padding-left 50%
-				text-align left
+				display inline-block
+				margin-right -50px
+				text-align center
+				padding-right 58.25%
+			img
+				margin-right 58.25%
