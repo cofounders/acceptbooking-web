@@ -1,6 +1,13 @@
 <div class="bookings schedule">
 	<a href="/bookings/add">Add new booking...</a>
 	<ol>
-		<li>booking!</li>
+		{{#each bookings}}
+		<li {{#if active}} class="active" {{/if}}>
+			<time>{{time}}</time>
+			{{#each route}}
+			<p>{{this}}</p>
+			{{/each}}
+		</li>
+		{{/each}}
 	</ol>
 </div>

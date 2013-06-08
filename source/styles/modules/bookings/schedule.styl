@@ -3,7 +3,7 @@
 		font-weight 700
 		text-decoration none
 		margin 5px
-		padding 10px 0 13px 0
+		padding 10px 0 10px 0
 		display block
 		text-align center
 		border-radius 4px
@@ -13,7 +13,7 @@
 			0px 0.5px 0px 0px rgba(255, 255, 255, 0.8)
 		color #b7b9bb
 		font-size 15px
-		text-shadow 0 1px rgba(255, 255, 255, 0.9)
+		text-shadow 0.5px 1px 0 rgba(255, 255, 255, 0.9)
 		vertical-align baseline
 		&:before
 			background-image url('/img/icn-addnew.png')
@@ -25,3 +25,53 @@
 			width 13px
 			padding 0 6px 3px 0
 			vertical-align bottom
+	> ol
+		background-image url('/img/bg-subtle_dots.png')
+		background-size 27px auto
+		list-style-type none
+		padding 0
+		margin 0
+		> li
+			border-bottom 1px solid rgba(0, 0, 0, 0.05)
+			font-size 12px
+			font-weight 700
+			color #666
+			position relative
+			&:before
+				content ' '
+				position absolute
+				top 25px
+				left 54.5px
+				width 8px
+				height 8px
+				border-radius 4px
+				background-clip padding-box
+				background-image linear-gradient(bottom, #696969 0%, #8a8a8a 100%)
+			&.active:before
+				background-image linear-gradient(bottom, #0199e7 0%, #19affd 100%)
+			> time
+				display inline-block
+				float left
+				width 58px
+				height 100%
+				text-align center
+				padding 20px 0 0 0
+			> p
+				border-left 1px solid rgba(0, 0, 0, 0.1)
+				margin 0 0 0 58px
+				vertical-align top
+				padding 5px 0
+				&:before
+					content ' '
+					display inline-block
+					width 20px
+					height 20px
+					vertical-align top
+					padding 0 0 0 20px
+					background-image url('/img/icn-pickup.png')
+					background-position center
+					background-repeat no-repeat
+					background-size 18.5px 19px
+				&:last-of-type:before
+					background-image url('/img/icn-dropoff.png')
+					background-size 18px 18px
