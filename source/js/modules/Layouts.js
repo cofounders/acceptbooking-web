@@ -14,6 +14,18 @@ function ($, _, Backbone, app,
 		}
 	});
 
+	Views.Install = Views.Base.extend({
+		template: 'layouts/install'
+	});
+
+	Views.Splash = Views.Base.extend({
+		template: 'layouts/splash'
+	});
+
+	Views['404'] = Views.Base.extend({
+		template: 'layouts/404'
+	});
+
 	Views.Navigation = Views.Base.extend({
 		initialize: function (options) {
 			window.scrollTo(0, 0);
@@ -50,16 +62,25 @@ function ($, _, Backbone, app,
 		]
 	});
 
-	Views.Install = Views.Base.extend({
-		template: 'layouts/install'
+	Views.Assigned = Views.Navigation.extend({
+		template: 'layouts/assigned',
+		header: {
+			title: 'Reassigned Jobs'
+		}
 	});
 
-	Views.Landing = Views.Base.extend({
-		template: 'layouts/landing'
+	Views.Schedule = Views.Navigation.extend({
+		template: 'layouts/schedule',
+		header: {
+			title: 'My Schedule'
+		}
 	});
 
-	Views.Login = Views.Base.extend({
-		template: 'layouts/login'
+	Views.Available = Views.Navigation.extend({
+		template: 'layouts/available',
+		header: {
+			title: 'Available Jobs'
+		}
 	});
 
 	Views.Menu = Views.Navigation.extend({
@@ -96,10 +117,6 @@ function ($, _, Backbone, app,
 		}
 	});
 
-	Views.Setup = Views.Base.extend({
-		template: 'layouts/setup'
-	});
-
 	Views.Add = Views.Navigation.extend({
 		template: 'layouts/add',
 		initialize: function (options) {
@@ -117,33 +134,16 @@ function ($, _, Backbone, app,
 		}
 	});
 
+	Views.Login = Views.Base.extend({
+		template: 'layouts/login'
+	});
+
+	Views.Setup = Views.Base.extend({
+		template: 'layouts/setup'
+	});
+
 	Views.Current = Views.Base.extend({
 		template: 'layouts/current'
-	});
-
-	Views.Assigned = Views.Navigation.extend({
-		template: 'layouts/assigned',
-		header: {
-			title: 'Reassigned Jobs'
-		}
-	});
-
-	Views.Schedule = Views.Navigation.extend({
-		template: 'layouts/schedule',
-		header: {
-			title: 'My Schedule'
-		}
-	});
-
-	Views.Available = Views.Navigation.extend({
-		template: 'layouts/available',
-		header: {
-			title: 'Available Jobs'
-		}
-	});
-
-	Views['404'] = Views.Base.extend({
-		template: 'layouts/404'
 	});
 
 	return {

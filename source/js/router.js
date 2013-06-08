@@ -8,7 +8,7 @@ define([
 	return Backbone.Router.extend({
 
 		routes: {
-			'': 'landing',
+			'': 'splash',
 			'install': 'install',
 			'login': 'login',
 			'menu': 'menu',
@@ -32,8 +32,8 @@ define([
 			}
 		},
 
-		landing: function () {
-			app.useLayout(Layouts.Views.Landing, {
+		splash: function () {
+			app.useLayout(Layouts.Views.Splash, {
 			}).setViews({
 			}).render();
 		},
