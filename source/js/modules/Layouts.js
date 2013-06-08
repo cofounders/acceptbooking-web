@@ -11,6 +11,12 @@ function ($, _, Backbone, app,
 	Views.Base = Backbone.View.extend({
 		initialize: function (options) {
 			window.scrollTo(0, 0);
+		}
+	});
+
+	Views.Navigation = Backbone.View.extend({
+		initialize: function (options) {
+			window.scrollTo(0, 0);
 			this.setViews({
 				'header': new Navigation.Views.Primary(this.header),
 				'footer': new Navigation.Views.Secondary(this.footer)
@@ -54,7 +60,7 @@ function ($, _, Backbone, app,
 		template: 'layouts/assigned'
 	});
 
-	Views.Schedule = Views.Base.extend({
+	Views.Schedule = Views.Navigation.extend({
 		template: 'layouts/schedule',
 		header: {
 			title: 'Schedule',
