@@ -19,14 +19,106 @@ define(['jquery', 'underscore', 'backbone', 'app'
 						'1 Marina Boulevard',
 						'East Coast Park Rd'
 					],
+					date: 'Today - 2013-06-12',
 					active: true,
 					time: '10:45'
+				}, {
+					route: [
+						'3A Jalan Terusan',
+						'Redhill MRT',
+						'Clarke Quay MRT'
+					],
+					date: 'Today - 2013-06-12',
+					active: false,
+					time: '18:00'
 				}, {
 					route: [
 						'834 Sims Ave',
 						'Kallang Pudding Road',
 						'122C Sengkang East Way'
 					],
+					date: 'Tomorrow - 2013-06-13',
+					active: false,
+					time: '12:15'
+				}, {
+					route: [
+						'834 Sims Ave',
+						'Kallang Pudding Road',
+						'122C Sengkang East Way'
+					],
+					date: 'Tomorrow - 2013-06-13',
+					active: false,
+					time: '12:15'
+				}, {
+					route: [
+						'834 Sims Ave',
+						'Kallang Pudding Road',
+						'122C Sengkang East Way'
+					],
+					date: 'Tomorrow - 2013-06-13',
+					active: false,
+					time: '12:15'
+				}, {
+					route: [
+						'834 Sims Ave',
+						'Kallang Pudding Road',
+						'122C Sengkang East Way'
+					],
+					date: 'Tomorrow - 2013-06-13',
+					active: false,
+					time: '12:15'
+				}, {
+					route: [
+						'834 Sims Ave',
+						'Kallang Pudding Road',
+						'122C Sengkang East Way'
+					],
+					date: 'Tomorrow - 2013-06-13',
+					active: false,
+					time: '12:15'
+				}, {
+					route: [
+						'834 Sims Ave',
+						'Kallang Pudding Road',
+						'122C Sengkang East Way'
+					],
+					date: 'Tomorrow - 2013-06-13',
+					active: false,
+					time: '12:15'
+				}, {
+					route: [
+						'834 Sims Ave',
+						'Kallang Pudding Road',
+						'122C Sengkang East Way'
+					],
+					date: 'Tomorrow - 2013-06-13',
+					active: false,
+					time: '12:15'
+				}, {
+					route: [
+						'834 Sims Ave',
+						'Kallang Pudding Road',
+						'122C Sengkang East Way'
+					],
+					date: 'Tomorrow - 2013-06-13',
+					active: false,
+					time: '12:15'
+				}, {
+					route: [
+						'834 Sims Ave',
+						'Kallang Pudding Road',
+						'122C Sengkang East Way'
+					],
+					date: 'Tomorrow - 2013-06-13',
+					active: false,
+					time: '12:15'
+				}, {
+					route: [
+						'834 Sims Ave',
+						'Kallang Pudding Road',
+						'122C Sengkang East Way'
+					],
+					date: 'Tomorrow - 2013-06-13',
 					active: false,
 					time: '12:15'
 				}]);
@@ -41,8 +133,21 @@ define(['jquery', 'underscore', 'backbone', 'app'
 			this.listenTo(this.collection, 'sync', this.render);
 		},
 		serialize: function () {
+			var byDate = _.groupBy(this.collection.toJSON(), 'date');
+			var dates = _.keys(byDate).sort();
+			var isActive = function (booking) {
+				return !!booking.active;
+			};
+			var calendar = _.map(dates, function (date) {
+				return {
+					date: date,
+					pretty: date,
+					active: _.any(byDate[date], isActive),
+					bookings: byDate[date]
+				};
+			});
 			return {
-				bookings: this.collection.toJSON()
+				calendar: calendar
 			};
 		}
 	});
