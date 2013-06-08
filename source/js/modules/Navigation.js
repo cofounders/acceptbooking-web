@@ -4,13 +4,54 @@ define(['jquery', 'underscore', 'backbone', 'app'
 	var Collections = {};
 	var Views = {};
 
+	/*
+		Example:
+		header: {
+			title: 'Schedule',
+			before: {
+				direction: 'prev',
+				href: '/menu',
+				label: 'Menu',
+				type: 'menu'
+			},
+			after: {
+				direction: 'next',
+				icon: true,
+				type: 'network',
+				href: '/drivers/network',
+				label: 'Network'
+			}
+		},
+	*/
 	Views.Primary = Backbone.View.extend({
 		template: 'navigation/primary',
 		serialize: function () {
+			var buttons = _.pick(this.options, 'before', 'after');
+			_.each(buttons, function (button) {
+				button.icon = (button.icon === true) || !button.label;
+			});
 			return this.options;
 		}
 	});
 
+	/*
+		Example:
+		footer: [
+			{
+				href: '/bookings/available',
+				label: 'Available Jobs',
+				type: 'available'
+			}, {
+				href: '/bookings/schedule',
+				label: 'My Schedule',
+				type: 'schedule'
+			}, {
+				href: '/bookings/assigned',
+				label: 'Reassigned Jobs',
+				type: 'assigned'
+			}
+		]
+	*/
 	Views.Secondary = Backbone.View.extend({
 		template: 'navigation/secondary',
 		initialize: function () {

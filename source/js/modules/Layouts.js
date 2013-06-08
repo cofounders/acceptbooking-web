@@ -14,14 +14,40 @@ function ($, _, Backbone, app,
 		}
 	});
 
-	Views.Navigation = Backbone.View.extend({
+	Views.Navigation = Views.Base.extend({
 		initialize: function (options) {
 			window.scrollTo(0, 0);
 			this.setViews({
-				'header': new Navigation.Views.Primary(this.header),
-				'footer': new Navigation.Views.Secondary(this.footer)
+				'header': new Navigation.Views.Primary(_.defaults(this.header, {
+					before: {
+						href: '/menu',
+						type: 'menu'
+					},
+					after: {
+						type: 'network',
+						href: '/drivers/network',
+					}
+				})),
+				'footer': new Navigation.Views.Secondary({
+					buttons: this.footer
+				})
 			});
-		}
+		},
+		footer: [
+			{
+				href: '/bookings/available',
+				label: 'Available Jobs',
+				type: 'available'
+			}, {
+				href: '/bookings/schedule',
+				label: 'My Schedule',
+				type: 'schedule'
+			}, {
+				href: '/bookings/assigned',
+				label: 'Reassigned Jobs',
+				type: 'assigned'
+			}
+		]
 	});
 
 	Views.Install = Views.Base.extend({
@@ -56,47 +82,25 @@ function ($, _, Backbone, app,
 		template: 'layouts/current'
 	});
 
-	Views.Assigned = Views.Base.extend({
-		template: 'layouts/assigned'
+	Views.Assigned = Views.Navigation.extend({
+		template: 'layouts/assigned',
+		header: {
+			title: 'Reassigned Jobs'
+		}
 	});
 
 	Views.Schedule = Views.Navigation.extend({
 		template: 'layouts/schedule',
 		header: {
-			title: 'Schedule',
-			before: {
-				direction: 'prev',
-				href: '/menu',
-				label: 'Menu',
-				type: 'menu'
-			},
-			after: {
-				direction: 'next',
-				icon: true,
-				type: 'network',
-				href: '/drivers/network',
-				label: 'Network'
-			}
-		},
-		footer: {buttons: [
-			{
-				href: '/bookings/available',
-				label: 'Available Jobs',
-				type: 'available'
-			}, {
-				href: '/bookings/schedule',
-				label: 'My Schedule',
-				type: 'schedule'
-			}, {
-				href: '/bookings/assigned',
-				label: 'Reassigned Jobs',
-				type: 'assigned'
-			}
-		]}
+			title: 'Schedule'
+		}
 	});
 
-	Views.Available = Views.Base.extend({
-		template: 'layouts/available'
+	Views.Available = Views.Navigation.extend({
+		template: 'layouts/available',
+		header: {
+			title: 'Available Jobs'
+		}
 	});
 
 	Views['404'] = Views.Base.extend({
