@@ -25,7 +25,7 @@ function ($, _, Backbone, app,
 					},
 					after: {
 						type: 'network',
-						href: '/drivers/network',
+						href: '/drivers/network'
 					}
 				})),
 				'footer': new Navigation.Views.Secondary({
