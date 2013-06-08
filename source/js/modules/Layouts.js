@@ -72,9 +72,6 @@ function ($, _, Backbone, app,
 				label: 'Network'
 			}
 		},
-		// <a href="/bookings/available" class="icon available" data-counter="3">Available Jobs</a>
-		// <a href="/bookings/schedule" class="icon schedule selected">My Schedule</a>
-		// <a href="/bookings/assigned" class="icon assigned">Reassigned Jobs</a>
 		footer: {buttons: [
 			{
 				href: '/bookings/available',

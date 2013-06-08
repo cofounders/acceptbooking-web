@@ -6,8 +6,8 @@ define(['jquery', 'underscore', 'backbone', 'app'
 
 	Models.Aggregator = Backbone.Model.extend({
 		defaults: {
-			'available': new Array(parseInt(Math.random() * 10)),
-			'assigned': new Array(parseInt(Math.random() * 2))
+			'available': new Array(parseInt(Math.random() * 10, 10)),
+			'assigned': new Array(parseInt(Math.random() * 2, 10))
 		}
 	});
 
