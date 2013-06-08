@@ -62,20 +62,59 @@ function ($, _, Backbone, app,
 		template: 'layouts/login'
 	});
 
-	Views.Menu = Views.Base.extend({
-		template: 'layouts/menu'
+	Views.Menu = Views.Navigation.extend({
+		template: 'layouts/menu',
+		initialize: function (options) {
+			window.scrollTo(0, 0);
+			this.setViews({
+				'header': new Navigation.Views.Primary({
+					title: 'Menu',
+					after: {
+						direction: 'next',
+						href: '/bookings/schedule',
+						label: 'Back'
+					}
+				})
+			});
+		}
 	});
 
-	Views.Network = Views.Base.extend({
-		template: 'layouts/network'
+	Views.Network = Views.Navigation.extend({
+		template: 'layouts/network',
+		initialize: function (options) {
+			window.scrollTo(0, 0);
+			this.setViews({
+				'header': new Navigation.Views.Primary({
+					title: 'Network',
+					before: {
+						direction: 'prev',
+						href: '/bookings/schedule',
+						label: 'Back'
+					}
+				})
+			});
+		}
 	});
 
 	Views.Setup = Views.Base.extend({
 		template: 'layouts/setup'
 	});
 
-	Views.Add = Views.Base.extend({
-		template: 'layouts/add'
+	Views.Add = Views.Navigation.extend({
+		template: 'layouts/add',
+		initialize: function (options) {
+			window.scrollTo(0, 0);
+			this.setViews({
+				'header': new Navigation.Views.Primary({
+					title: 'Add a Booking',
+					after: {
+						direction: 'next',
+						label: 'Cancel',
+						href: '/bookings/schedule'
+					}
+				})
+			});
+		}
 	});
 
 	Views.Current = Views.Base.extend({
@@ -92,7 +131,7 @@ function ($, _, Backbone, app,
 	Views.Schedule = Views.Navigation.extend({
 		template: 'layouts/schedule',
 		header: {
-			title: 'Schedule'
+			title: 'My Schedule'
 		}
 	});
 
