@@ -11,6 +11,9 @@ _site
 # Stylus
 *.css
 
+# Phantom
+tests/ghost/temp/cookies.txt
+
 # Numerous always-ignore extensions
 *.diff
 *.err
