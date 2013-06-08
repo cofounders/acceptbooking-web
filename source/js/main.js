@@ -6,7 +6,8 @@ define(
 	'templates.built',
 	'modules/Session/Base',
 	'modules/Notifications',
-	'helpers/currency'
+	'helpers/currency',
+	'fastclick'
 ],
 function (
 	$, _, Handlebars, Backbone,
@@ -15,7 +16,8 @@ function (
 	templatesBuilt,
 	Session,
 	Notifications,
-	currency
+	currency,
+	FastClick
 ) {
 	var JST = window.JST = _.extend(window.JST || {}, templatesBuilt);
 
@@ -35,6 +37,10 @@ function (
 				done(JST[bare]);
 			}, 'text');
 		}
+	});
+
+	$(function() {
+		FastClick.attach(document.body);
 	});
 
 	Handlebars.registerHelper('$', currency);

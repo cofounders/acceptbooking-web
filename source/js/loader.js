@@ -8,6 +8,8 @@ require.config({
 		backbone: '//cdnjs.cloudflare.com' +
 			'/ajax/libs/backbone.js/1.0.0/backbone-min',
 		facebook: '//connect.facebook.net/en_US/all',
+		fastclick: '//cdnjs.cloudflare.com' +
+			'/ajax/libs/fastclick/0.6.7/fastclick.min',
 		handlebars: '//cdnjs.cloudflare.com' +
 			'/ajax/libs/handlebars.js/1.0.0-rc.4/handlebars.min',
 		jquery: '//cdnjs.cloudflare.com' +
@@ -28,6 +30,10 @@ require.config({
 		},
 		facebook: {
 			exports: 'FB'
+		},
+		fastclick: {
+			deps: ['jquery'],
+			exports: 'FastClick'
 		},
 		handlebars: {
 			exports: 'Handlebars'
