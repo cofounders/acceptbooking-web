@@ -18,7 +18,7 @@ define([
 		constants: constants,
 
 		api: function (endpoint, fields) {
-			var apiBasePath = 'http://api.acceptbooking.com';
+			var apiBasePath = '/api';
 			var hasSlash = /\/$/.test(apiBasePath) || /^\//.test(endpoint);
 			if (!hasSlash) {
 				apiBasePath += '/';

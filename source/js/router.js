@@ -1,8 +1,10 @@
 define([
 	'jquery', 'underscore', 'backbone', 'app',
+	'modules/Bookings',
 	'modules/Layouts'
 ], function (
 	$, _, Backbone, app,
+	Bookings,
 	Layouts
 ) {
 	return Backbone.Router.extend({
@@ -27,14 +29,12 @@ define([
 				app.router.navigate('/', {trigger: true});
 			} else {
 				app.useLayout(Layouts.Views.Install, {
-				}).setViews({
 				}).render();
 			}
 		},
 
 		splash: function () {
 			app.useLayout(Layouts.Views.Splash, {
-			}).setViews({
 			}).render();
 		},
 
@@ -81,9 +81,14 @@ define([
 		},
 
 		schedule: function () {
+			var bookings = new Bookings.Collections.Schedule();
 			app.useLayout(Layouts.Views.Schedule, {
 			}).setViews({
+				'article': new Bookings.Views.Schedule({
+					collection: bookings
+				})
 			}).render();
+			bookings.fetch();
 		},
 
 		available: function () {
