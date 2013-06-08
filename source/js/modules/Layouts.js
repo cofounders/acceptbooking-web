@@ -1,8 +1,8 @@
 define(['jquery', 'underscore', 'backbone', 'app',
-	'modules/Header'
+	'modules/Navigation'
 ],
 function ($, _, Backbone, app,
-	Header
+	Navigation
 ) {
 	var Models = {};
 	var Collections = {};
@@ -11,6 +11,10 @@ function ($, _, Backbone, app,
 	Views.Base = Backbone.View.extend({
 		initialize: function (options) {
 			window.scrollTo(0, 0);
+			this.setViews({
+				'header': new Navigation.Views.Primary(this.header),
+				'footer': new Navigation.Views.Secondary(this.footer)
+			});
 		}
 	});
 
@@ -51,7 +55,41 @@ function ($, _, Backbone, app,
 	});
 
 	Views.Schedule = Views.Base.extend({
-		template: 'layouts/schedule'
+		template: 'layouts/schedule',
+		header: {
+			title: 'Schedule',
+			before: {
+				direction: 'prev',
+				href: '/menu',
+				label: 'Menu',
+				type: 'menu'
+			},
+			after: {
+				direction: 'next',
+				icon: true,
+				type: 'network',
+				href: '/drivers/network',
+				label: 'Network'
+			}
+		},
+		// <a href="/bookings/available" class="icon available" data-counter="3">Available Jobs</a>
+		// <a href="/bookings/schedule" class="icon schedule selected">My Schedule</a>
+		// <a href="/bookings/assigned" class="icon assigned">Reassigned Jobs</a>
+		footer: {buttons: [
+			{
+				href: '/bookings/available',
+				label: 'Available Jobs',
+				type: 'available'
+			}, {
+				href: '/bookings/schedule',
+				label: 'My Schedule',
+				type: 'schedule'
+			}, {
+				href: '/bookings/assigned',
+				label: 'Reassigned Jobs',
+				type: 'assigned'
+			}
+		]}
 	});
 
 	Views.Available = Views.Base.extend({

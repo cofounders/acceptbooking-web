@@ -1,0 +1,59 @@
+#app .navigation.primary
+	a
+		border-image-source url('/img/btn-square-bg.png')
+		border-image-slice 8 15 6 15
+		border-width 4px 7.5px 3px 7.5px
+		padding 0 5px 0 5px
+		background-clip content-box, padding-box
+		background-origin content-box
+		background-position center, center
+		background-repeat no-repeat, repeat
+		display inline-block
+		box-sizing content-box
+		height 28px
+		line-height 28px
+		overflow hidden
+		position absolute
+		left 5px
+		top 5px
+		color #fff
+		font-family 'Open Sans', sans-serif
+		font-size 12px
+		font-weight 800
+		text-decoration none
+	h1 ~ a
+		left auto
+		right 5px
+	a[rel=prev] /* Use rel="next" to show a pointer to the left */
+		border-image-source url('/img/btn-arrow-bg.png')
+		border-image-slice 8 11 8 30
+		border-width 4px 5.5px 4px 15px
+		padding 0 7px 0 3px
+	a[rel=next] /* Use rel="next" to show a pointer to the right */
+		border-image-source url('/img/btn-arrow-right-bg.png')
+		border-image-slice 8 30 8 11
+		border-width 4px 15px 4px 5.5px
+		padding 0 3px 0 7px
+	a.icon
+		color transparent
+	a.menu
+		background-image url('/img/icn-menu.png'),
+			url('/img/header-bg.jpg')
+		background-size 19.5px auto,
+			auto 45px
+		width 19.5px
+	a.network
+		background-image url('/img/icn-network.png'),
+			url('/img/header-bg.jpg')
+		background-size 22.5px auto,
+			auto 45px
+		width 22.5px
+
+	h1
+		text-align center
+		font-size 24px
+		padding 10px 0
+		margin 0
+		color #fff
+		font-size 18px
+		font-weight 800

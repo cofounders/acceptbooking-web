@@ -7,66 +7,6 @@
 		height 45px
 		background-image url('/img/header-bg.jpg')
 		background-size auto 45px
-
-		> a
-			border-image-source url('/img/btn-square-bg.png')
-			border-image-slice 8 15 6 15
-			border-width 4px 7.5px 3px 7.5px
-			padding 0 5px 0 5px
-			background-clip content-box, padding-box
-			background-origin content-box
-			background-position center, center
-			background-repeat no-repeat, repeat
-			display inline-block
-			box-sizing content-box
-			height 28px
-			line-height 28px
-			overflow hidden
-			position absolute
-			left 5px
-			top 5px
-			color #fff
-			font-family 'Open Sans', sans-serif
-			font-size 12px
-			font-weight 800
-			text-decoration none
-		> h1 ~ a
-			left auto
-			right 5px
-		> a[rel=prev] /* Use rel="next" to show a pointer to the left */
-			border-image-source url('/img/btn-arrow-bg.png')
-			border-image-slice 8 11 8 30
-			border-width 4px 5.5px 4px 15px
-			padding 0 7px 0 3px
-		> a[rel=next] /* Use rel="next" to show a pointer to the right */
-			border-image-source url('/img/btn-arrow-right-bg.png')
-			border-image-slice 8 30 8 11
-			border-width 4px 15px 4px 5.5px
-			padding 0 3px 0 7px
-		> a.icon
-			color transparent
-		> a.menu
-			background-image url('/img/icn-menu.png'),
-				url('/img/header-bg.jpg')
-			background-size 19.5px auto,
-				auto 45px
-			width 19.5px
-		> a.network
-			background-image url('/img/icn-network.png'),
-				url('/img/header-bg.jpg')
-			background-size 22.5px auto,
-				auto 45px
-			width 22.5px
-
-		> h1
-			text-align center
-			font-size 24px
-			padding 10px 0
-			margin 0
-			color #fff
-			font-size 18px
-			font-weight 800
-
 	> article
 		padding 45px 0 50px 0
 		height 1000px
@@ -85,7 +25,6 @@
 			color #b7b9bb
 			font-size 15px
 			text-shadow 0 1px rgba(255, 255, 255, 0.9)
-
 	> footer
 		position fixed
 		bottom 0
@@ -96,65 +35,3 @@
 		background-size auto 50px
 		text-align center
 		font-size 0
-		> a
-			vertical-align top
-			display inline-block
-			color #fff
-			font-size 9px
-			font-weight 700
-			text-decoration none
-			padding 33px 0 0 0
-			text-align center
-			// width 100px
-			// height 40px
-			width 33%
-			height 100%
-			box-sizing border-box
-			&.icon
-				background-repeat no-repeat
-				background-position center 7px
-				background-origin padding-box
-				background-size auto 25px
-				&.available
-					background-image url('/img/icn-openjobs.png')
-				&.schedule
-					background-image url('/img/icn-myschedule.png')
-				&.assigned
-					background-image url('/img/icn-reassigned.png')
-			&.selected
-				position relative
-			&.selected:after
-				display inline-block
-				content ' '
-				z-index -1
-				position absolute
-				top 10%
-				right 5%
-				bottom 10%
-				left 5%
-				border 0.5px solid #054a68
-				border-radius 5px
-				background-clip padding-box
-				background-color #fff
-				box-shadow inset -0.5px 0 2.5px rgba(0, 0, 0, 0.36), inset 0 0 25px rgba(1, 22, 31, 0.18)
-				background-image linear-gradient(top, #02648e 0%, #0c86b2 51%, #108db7 51%, #1eb2db 100%)
-			&[data-counter]
-				position relative
-			&[data-counter]:before
-				position absolute
-				top -4px
-				right 17px
-				content attr(data-counter)
-				color #f3f3f3
-				font-size 11.5px
-				font-weight 700
-				line-height 17px
-				text-align center
-				text-shadow 0 0.5px 0.5px rgba(0, 0, 1, 0.2)
-				width 18px
-				height 18px
-				border-radius 8px / 8.5px
-				background-clip padding-box
-				background-color #952b2b
-				box-shadow -2px 0 3px rgba(0,0,0,.76), inset 0 1px 0 rgba(255, 255, 255, 0.43)
-				background-image linear-gradient(top, #b3131a 0%, #cb2027 100%)

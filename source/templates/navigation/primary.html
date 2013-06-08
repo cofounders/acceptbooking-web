@@ -1,0 +1,43 @@
+<nav class="navigation primary">
+	{{#before}}
+	<a
+		{{#if href}}
+			href="{{href}}"
+		{{/if}}
+
+		{{#if direction}}
+			rel="{{direction}}"
+		{{/if}}
+
+		{{#if icon}}
+			class="{{type}} icon"
+		{{/if}}
+	>
+		{{#if label}}
+			{{label}}
+		{{/if}}
+	</a>
+	{{/before}}
+
+	<h1>{{title}}</h1>
+
+	{{#after}}
+	<a
+		{{#if href}}
+			href="{{href}}"
+		{{/if}}
+
+		{{#if direction}}
+			rel="{{direction}}"
+		{{/if}}
+
+		{{#if icon}}
+			class="{{type}} icon"
+		{{/if}}
+	>
+		{{#if label}}
+			{{label}}
+		{{/if}}
+	</a>
+	{{/after}}
+</nav>

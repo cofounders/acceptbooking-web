@@ -5,6 +5,7 @@ define(
 	'router',
 	'templates.built',
 	'modules/Session/Base',
+	'modules/Notifications',
 	'helpers/currency'
 ],
 function (
@@ -13,6 +14,7 @@ function (
 	Router,
 	templatesBuilt,
 	Session,
+	Notifications,
 	currency
 ) {
 	var JST = window.JST = _.extend(window.JST || {}, templatesBuilt);
@@ -38,6 +40,8 @@ function (
 	Handlebars.registerHelper('$', currency);
 
 	app.router = new Router();
+
+	app.notifications = new Notifications.Models.Aggregator();
 
 	app.session = new Session();
 	app.session.on('signOut', function () {

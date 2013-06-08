@@ -1,0 +1,8 @@
+<nav class="navigation secondary">
+	{{#each buttons}}
+	<a href="{{href}}"
+		class="icon {{type}} {{#if selected}} selected {{/if}}"
+		{{#if counter}} data-counter="{{counter}}"{{/if}}
+	>{{label}}</a>
+	{{/each}}
+</nav>
