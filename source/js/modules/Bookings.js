@@ -1,5 +1,8 @@
-define(['jquery', 'underscore', 'backbone', 'app'
-], function ($, _, Backbone, app) {
+define(['jquery', 'underscore', 'backbone', 'app',
+	'leaflet'
+], function ($, _, Backbone, app,
+	L
+) {
 	var Models = {};
 	var Collections = {};
 	var Views = {};
@@ -172,7 +175,14 @@ define(['jquery', 'underscore', 'backbone', 'app'
 	Views.AvailableMap = Backbone.View.extend({
 		template: 'bookings/availableMap',
 		initialize: function () {
-			this.listenTo(this.collection, 'sync', this.render);
+			// this.listenTo(this.collection, 'sync', this.render);
+		},
+		afterRender: function () {
+			var container = this.$el.find('#map').get(0);
+			var map = L.map(container).setView([1.3667, 103.7500], 11);
+			L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+				attribution: '&copy; OpenStreetMap'
+			}).addTo(map);
 		}
 	});
 
