@@ -62,8 +62,8 @@ define(['jquery', 'underscore', 'backbone', 'app'
 				var queue = app.notifications.get(button.type) || [];
 				button.counter = queue.length;
 				var target = button.href;
-				var current = Backbone.history.fragment;
-				button.selected = target.indexOf(current) > -1;
+				var current = '/' + Backbone.history.fragment;
+				button.selected = current.indexOf(target) > -1;
 				return button;
 			})};
 		}
