@@ -17,6 +17,8 @@ require.config({
 		'backbone.layoutmanager': '//cdnjs.cloudflare.com' +
 			'/ajax/libs/backbone.layoutmanager' +
 			'/0.8.8/backbone.layoutmanager.min',
+		leafleft: '//cdnjs.cloudflare.com' +
+			'/ajax/libs/leaflet/0.5.1/leaflet',
 		mustache: '//cdnjs.cloudflare.com' +
 			'/ajax/libs/mustache.js/0.7.0/mustache.min',
 		underscore: '//cdnjs.cloudflare.com' +
@@ -43,6 +45,9 @@ require.config({
 		},
 		'backbone.layoutmanager': {
 			deps: ['backbone']
+		},
+		leafleft: {
+			exports: 'L'
 		},
 		mustache: {
 			exports: 'mustache'
