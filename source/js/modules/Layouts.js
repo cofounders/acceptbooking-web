@@ -83,6 +83,10 @@ function ($, _, Backbone, app,
 		}
 	});
 
+	Views.AvailableMap = Views.Base.extend({
+		template: 'layouts/availableMap'
+	});
+
 	Views.Menu = Views.Navigation.extend({
 		template: 'layouts/menu',
 		initialize: function (options) {

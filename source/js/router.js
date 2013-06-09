@@ -111,9 +111,9 @@ define([
 				lat: 0,
 				lon: 0
 			});
-			app.useLayout(Layouts.Views.Available, {
+			app.useLayout(Layouts.Views.AvailableMap, {
 			}).setViews({
-				'article': new Bookings.Views.AvailableMap({
+				'section': new Bookings.Views.AvailableMap({
 					collection: bookings
 				})
 			}).render();
