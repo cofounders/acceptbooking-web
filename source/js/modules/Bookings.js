@@ -127,6 +127,16 @@ define(['jquery', 'underscore', 'backbone', 'app'
 		}
 	});
 
+	Collections.Available = Backbone.Collection.extend({
+		model: Models.Booking,
+		initialize: function (models, options) {
+			this.options = options;
+		},
+		url: function () {
+			return app.api('bookings/available/:lon/:lat/', this.options);
+		}
+	});
+
 	Views.Schedule = Backbone.View.extend({
 		template: 'bookings/schedule',
 		initialize: function () {
@@ -149,6 +159,20 @@ define(['jquery', 'underscore', 'backbone', 'app'
 			return {
 				calendar: calendar
 			};
+		}
+	});
+
+	Views.AvailableList = Backbone.View.extend({
+		template: 'bookings/availableList',
+		initialize: function () {
+			this.listenTo(this.collection, 'sync', this.render);
+		}
+	});
+
+	Views.AvailableMap = Backbone.View.extend({
+		template: 'bookings/availableMap',
+		initialize: function () {
+			this.listenTo(this.collection, 'sync', this.render);
 		}
 	});
 

@@ -20,7 +20,8 @@ define([
 			'bookings/current': 'current',
 			'bookings/assigned': 'assigned',
 			'bookings/schedule': 'schedule',
-			'bookings/available': 'available',
+			'bookings/available': 'availableList',
+			'bookings/available/map': 'availableMap',
 			'*path': '404'
 		},
 
@@ -91,10 +92,32 @@ define([
 			bookings.fetch();
 		},
 
-		available: function () {
+		availableList: function () {
+			var bookings = new Bookings.Collections.Available([], {
+				lat: 0,
+				lon: 0
+			});
 			app.useLayout(Layouts.Views.Available, {
 			}).setViews({
+				'article': new Bookings.Views.AvailableList({
+					collection: bookings
+				})
 			}).render();
+			bookings.fetch();
+		},
+
+		availableMap: function () {
+			var bookings = new Bookings.Collections.Available([], {
+				lat: 0,
+				lon: 0
+			});
+			app.useLayout(Layouts.Views.Available, {
+			}).setViews({
+				'article': new Bookings.Views.AvailableMap({
+					collection: bookings
+				})
+			}).render();
+			bookings.fetch();
 		},
 
 		404: function () {
