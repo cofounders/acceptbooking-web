@@ -1,7 +1,9 @@
 define(['jquery', 'underscore', 'backbone', 'app',
-	'leaflet'
+	'leaflet',
+	'modules/Geocode'
 ], function ($, _, Backbone, app,
-	L
+	L,
+	Geocode
 ) {
 	var Models = {};
 	var Collections = {};
@@ -177,13 +179,42 @@ define(['jquery', 'underscore', 'backbone', 'app',
 		initialize: function () {
 			// this.listenTo(this.collection, 'sync', this.render);
 		},
+		events: {
+			'click article > button': 'locateMe'
+		},
+		map: null,
 		afterRender: function () {
 			var container = this.$el.find('#map').get(0);
-			var map = L.map(container).setView([1.3667, 103.7500], 11);
+			var map = this.map = L.map(container);
+			var that = this;
 			L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 				attribution: '&copy; OpenStreetMap'
 			}).addTo(map);
-		}
+			map.setView([1.3667, 103.7500], 11);
+			map.on('drag', function () {
+				map.stopLocate();
+			});
+			map.on('move', function () {
+				that.updateLabel();
+			});
+			this.locateMe();
+		},
+		locateMe: function (event) {
+			this.map.stopLocate();
+			this.map.locate({
+				enableHighAccuracy: true,
+				setView: true,
+				watch: true
+			});
+		},
+		updateLabel: _.throttle(function () {
+			var that = this;
+			var position = this.map.getCenter();
+			var geocode = new Geocode.Models.Reverse(position);
+			geocode.fetch({success: function (result) {
+				that.$el.find('header b').text(result.get('address'));
+			}});
+		}, 1000)
 	});
 
 	return {
