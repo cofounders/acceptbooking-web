@@ -22,7 +22,9 @@ define([
 			'bookings/current': 'current',
 			'bookings/assigned': 'assigned',
 			'bookings/schedule': 'schedule',
-			'bookings/available': 'availableList',
+			'bookings/available': 'available',
+			'bookings/available/current': 'availableCurrent',
+			'bookings/available/advanced': 'availableAdvanced',
 			'bookings/available/map': 'availableMap',
 			'*path': '404'
 		},
@@ -87,25 +89,40 @@ define([
 			var bookings = new Bookings.Collections.Schedule();
 			app.useLayout(Layouts.Views.Schedule, {
 			}).setViews({
-				'article': new Bookings.Views.Schedule({
+				'article > #bookings-list': new Bookings.Views.List({
 					collection: bookings
 				})
 			}).render();
 			bookings.fetch();
 		},
 
-		availableList: function () {
-			var bookings = new Bookings.Collections.Available();
-			app.useLayout(Layouts.Views.Available, {
+		available: function () {
+			this.navigate('bookings/available/current', {trigger: true});
+		},
+
+		availableCurrent: function () {
+			var bookings = new Bookings.Collections.Current();
+			app.useLayout(Layouts.Views.AvailableCurrent, {
 			}).setViews({
-				'article': new Bookings.Views.AvailableList({
+				'article': new Bookings.Views.AvailableCurrent({
 					collection: bookings
 				})
 			}).render();
 		},
 
+		availableAdvanced: function () {
+			var bookings = new Bookings.Collections.Advanced();
+			app.useLayout(Layouts.Views.AvailableAdvanced, {
+			}).setViews({
+				'article': new Bookings.Views.AvailableAdvanced({
+					collection: bookings
+				})
+			}).render();
+			bookings.fetch();
+		},
+
 		availableMap: function () {
-			var bookings = new Bookings.Collections.Available();
+			var bookings = new Bookings.Collections.Current();
 			var geocode = new Geocode.Models.Reverse();
 			app.useLayout(Layouts.Views.AvailableMap, {
 			}).setViews({

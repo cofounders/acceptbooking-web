@@ -1,0 +1,31 @@
+#app .bookings.available-current,
+#app .bookings.available-advanced
+	height 100%
+	> h2
+		margin 0
+		height 40px
+		width 100%
+		overflow hidden
+		display flex
+		flex-flow row nowrap
+		> a
+			text-decoration none
+			text-align center
+			font-weight 600
+			font-size 12px
+			color #333
+			text-transform uppercase
+			line-height 40px
+			&.list
+				flex 1
+				border-right 1px solid rgba(197, 202, 203, 0.15)
+				&.selected
+					color #0373a2
+			&.map
+				font-size 0
+				flex 0
+				width 40px
+				background-image url('/img/map/icn-map-inactive.png')
+				background-size auto 15px
+				background-repeat no-repeat
+				background-position center

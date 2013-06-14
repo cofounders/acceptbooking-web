@@ -1,0 +1,71 @@
+#app ol.bookings.list
+	list-style-type none
+	padding 0
+	margin 0
+	> li
+		> time
+			color #666
+			font-size 12px
+			font-weight 700
+			width 100%
+			box-shadow 0 1px 2.5px rgba(0, 0, 0, 0.145),
+				inset 0 1px 0 #fff
+			background-image linear-gradient(bottom, #ededed 0%, #f8f8f8 100%)
+			text-transform uppercase
+			padding 6px 0 5px 10px
+			display inline-block
+			box-sizing border-box
+		&.active > time
+			color #0d93c3
+		> ol
+			list-style-type none
+			padding 0
+			margin 0
+			> li
+				border-bottom 1px solid rgba(0, 0, 0, 0.05)
+				font-size 12px
+				font-weight 700
+				color #666
+				position relative
+				&:last-of-type
+					border-bottom-width 0
+				&.active
+					background-color rgba(0, 0, 0, 0.05)
+				&:before
+					content ' '
+					position absolute
+					top 25px
+					left 54.5px
+					width 8px
+					height 8px
+					border-radius 4px
+					background-clip padding-box
+					background-image linear-gradient(bottom, #696969 0%, #8a8a8a 100%)
+				&.active:before
+					background-image linear-gradient(bottom, #0199e7 0%, #19affd 100%)
+				> time
+					display inline-block
+					float left
+					width 58px
+					height 100%
+					text-align center
+					padding 20px 0 0 0
+				> p
+					border-left 1px solid rgba(0, 0, 0, 0.1)
+					margin 0 0 0 58px
+					vertical-align top
+					padding 5px 0
+					&:before
+						content ' '
+						display inline-block
+						width 20px
+						height 20px
+						vertical-align top
+						padding 0 0 0 20px
+						background-image url('/img/icn-pickup.png')
+						background-position center
+						background-repeat no-repeat
+						background-size 18.5px 19px
+					&:last-of-type:before
+						background-image url('/img/icn-dropoff.png')
+						background-size 18px 18px
