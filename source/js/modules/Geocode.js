@@ -32,7 +32,7 @@ define(['jquery', 'underscore', 'backbone', 'app',
 					address: address
 				};
 				that.set(response);
-				if (options.success) {
+				if (options && options.success) {
 					options.success(that, response, options);
 				}
 			}, 100 + Math.random() * 300);

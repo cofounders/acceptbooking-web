@@ -1,10 +1,12 @@
 define([
 	'jquery', 'underscore', 'backbone', 'app',
 	'modules/Bookings',
+	'modules/Geocode',
 	'modules/Layouts'
 ], function (
 	$, _, Backbone, app,
 	Bookings,
+	Geocode,
 	Layouts
 ) {
 	return Backbone.Router.extend({
@@ -93,31 +95,25 @@ define([
 		},
 
 		availableList: function () {
-			var bookings = new Bookings.Collections.Available([], {
-				lat: 0,
-				lon: 0
-			});
+			var bookings = new Bookings.Collections.Available();
 			app.useLayout(Layouts.Views.Available, {
 			}).setViews({
 				'article': new Bookings.Views.AvailableList({
 					collection: bookings
 				})
 			}).render();
-			bookings.fetch();
 		},
 
 		availableMap: function () {
-			var bookings = new Bookings.Collections.Available([], {
-				lat: 0,
-				lon: 0
-			});
+			var bookings = new Bookings.Collections.Available();
+			var geocode = new Geocode.Models.Reverse();
 			app.useLayout(Layouts.Views.AvailableMap, {
 			}).setViews({
 				'section': new Bookings.Views.AvailableMap({
-					collection: bookings
+					collection: bookings,
+					model: geocode
 				})
 			}).render();
-			bookings.fetch();
 		},
 
 		404: function () {
