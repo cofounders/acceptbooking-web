@@ -59,7 +59,7 @@ function (
 		root: app.root
 	});
 
-	if (navigator.standalone === false) {
+	if (navigator.standalone === false && !navigator.userAgent.match('CriOS')) {
 		app.router.navigate('/install', {trigger: true});
 	}
 
