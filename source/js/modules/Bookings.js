@@ -254,8 +254,8 @@ define(['jquery', 'underscore', 'backbone', 'app',
 							':' +
 							Math.round(10 + Math.random() * 50);
 					}
-				})
-			})
+				});
+			});
 			return list;
 		}
 	});
@@ -298,7 +298,7 @@ define(['jquery', 'underscore', 'backbone', 'app',
 					collection: this.collection
 				})
 			});
-		},
+		}
 	});
 
 	Views.AvailableMap = Backbone.View.extend({
