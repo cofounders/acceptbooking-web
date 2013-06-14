@@ -30,7 +30,9 @@
 				&.active
 					background-color rgba(86, 203, 232, 0.1)
 				> a
-					display block
+					display flex
+					height 100%
+					width 100%
 					text-decoration none
 					font-size 12px
 					font-weight 600
@@ -45,34 +47,62 @@
 						position absolute
 						right 10px
 						top 50%
-					> time
-						display inline-block
-						float left
-						width 58px
-						height 100%
-						font-size 15px
-						text-align center
-						padding 20px 0 0 0
-					> p
+					> aside
+						flex 0
+						min-width 58px
+						padding 15px 0 0 0
+						> *
+							display block
+							text-align center
+							text-transform uppercase
+						> .time,
+						> .until,
+						> .distance
+							font-size 15px
+						> .eta,
+						> .until > i
+							font-size 12px
+							color #999
+						> .until > i
+							font-style normal
+							display block
+							margin -1px 0 -2px 0
+						> .duration
+							font-size 9px
+							color #fff
+							> b
+								display inline-block
+								background-color #0373a2
+								border-radius 2px
+								padding 2px 6px
+								margin-top -2px
+					> ol
+						flex 1
+						list-style-type none
 						border-left 1px solid rgba(0, 0, 0, 0.1)
-						margin 0 0 0 58px
-						vertical-align top
-						padding 5px 0
-						text-transform uppercase
-						&:before
-							content ' '
-							display inline-block
-							width 20px
-							height 20px
-							vertical-align top
-							padding 0 0 0 20px
-							background-position center
-							background-repeat no-repeat
-							background-image url('/img/icn-stop.png')
-							background-size 9px 17px
-						&:first-of-type:before
-							background-image url('/img/icn-pickup.png')
-							background-size 18.5px 19px
-						&:last-of-type:before
-							background-image url('/img/icn-dropoff.png')
-							background-size 18px 18px
+						margin 0
+						padding 10px 0
+						> li
+							margin 0
+							vertical-align bottom
+							padding 0 0 2px 0
+							text-transform uppercase
+							&:last-of-type
+								padding 0
+							&:before
+								content ' '
+								display inline-block
+								width 20px
+								height 20px
+								vertical-align top
+								padding 0 0 0 18px
+								background-position center
+								background-repeat no-repeat
+								background-image url('/img/icn-stop.png')
+								background-size 9px 17px
+							&:first-of-type:before
+								background-image url('/img/icn-pickup.png')
+								background-size 18.5px 19px
+							&:last-of-type:before
+								background-image url('/img/icn-dropoff.png')
+								background-size 18px 18px

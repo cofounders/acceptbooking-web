@@ -6,10 +6,18 @@
 			{{#each bookings}}
 			<li {{#if active}} class="active" {{/if}}>
 				<a href="/bookings/details/{{id}}">
-					<time>{{time}}</time>
-					{{#each route}}
-					<p>{{name}}</p>
-					{{/each}}
+					<aside>
+						{{#if time}}<span class="time">{{time}}</span>{{/if}}
+						{{#if until}}<span class="until"><i>to</i> {{until}}</span>{{/if}}
+						{{#if duration}}<span class="duration"><b>{{duration}}</b></span>{{/if}}
+						{{#if distance}}<span class="distance">{{distance}}km</span>{{/if}}
+						{{#if eta}}<span class="eta">{{eta}}</span>{{/if}}
+					</aside>
+					<ol>
+						{{#each route}}
+						<li>{{name}}</li>
+						{{/each}}
+					</ol>
 				</a>
 			</li>
 			{{/each}}
