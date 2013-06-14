@@ -48,7 +48,7 @@ function ($, _, Backbone, app,
 		footer: [
 			{
 				href: '/bookings/available',
-				label: 'Available Jobs',
+				label: 'New Bookings',
 				type: 'available'
 			}, {
 				href: '/bookings/schedule',
@@ -75,7 +75,7 @@ function ($, _, Backbone, app,
 			title: 'My Schedule'
 		},
 		afterRender: function () {
-			window.scrollTo(0, 49);
+			window.scrollTo(0, 40);
 		}
 	});
 

@@ -141,6 +141,7 @@ define(['jquery', 'underscore', 'backbone', 'app',
 			}
 		];
 		_.each(bookings, function (booking) {
+			booking.id = Math.ceil(Math.random() * 50000);
 			_.each(booking.route, function (stop) {
 				var directionLng = Math.random() > 0.5 ? 1 : -1;
 				var directionLat = Math.random() > 0.5 ? 1 : -1;

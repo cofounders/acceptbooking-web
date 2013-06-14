@@ -5,10 +5,12 @@
 		<ol>
 			{{#each bookings}}
 			<li {{#if active}} class="active" {{/if}}>
-				<time>{{time}}</time>
-				{{#each route}}
-				<p>{{name}}</p>
-				{{/each}}
+				<a href="/bookings/details/{{id}}">
+					<time>{{time}}</time>
+					{{#each route}}
+					<p>{{name}}</p>
+					{{/each}}
+				</a>
 			</li>
 			{{/each}}
 		</ol>
