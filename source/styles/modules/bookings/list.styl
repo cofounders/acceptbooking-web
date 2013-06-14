@@ -1,0 +1,108 @@
+#app ol.bookings.list
+	list-style-type none
+	padding 0
+	margin 0
+	> li
+		> time
+			border-top 1px solid #c5cacb
+			color #666
+			font-size 12px
+			font-weight 700
+			width 100%
+			box-shadow 0 1px 2.5px rgba(0, 0, 0, 0.29),
+				inset 0 1px 0 #fff
+			background-image linear-gradient(bottom, mix(#dadada, rgba(246, 246, 246, 0.69)) 0%, mix(#f8f8f8, rgba(246, 246, 246, 0.69)) 100%)
+			text-transform uppercase
+			padding 3px 0 2.5px 10px
+			display inline-block
+			box-sizing border-box
+		&.active > time
+			color #0373a2
+		> ol
+			list-style-type none
+			padding 0
+			margin 0
+			> li
+				border-bottom 1px solid rgba(0, 0, 0, 0.05)
+				position relative
+				&:last-of-type
+					border-bottom-width 0
+				&.active
+					background-color rgba(86, 203, 232, 0.1)
+				> a
+					display flex
+					height 100%
+					width 100%
+					text-decoration none
+					font-size 12px
+					font-weight 600
+					color #333
+					&:after
+						content ' '
+						background-image url('/img/icn-arrow-more.png')
+						background-size 15px auto
+						height 9px
+						width 15px
+						transform rotate(-90deg)
+						position absolute
+						right 10px
+						top 50%
+					> aside
+						flex 0
+						min-width 58px
+						padding 15px 0 0 0
+						> *
+							display block
+							text-align center
+							text-transform uppercase
+						> .time,
+						> .until,
+						> .distance
+							font-size 15px
+						> .eta,
+						> .until > i
+							font-size 12px
+							color #999
+						> .until > i
+							font-style normal
+							display block
+							margin -1px 0 -2px 0
+						> .duration
+							font-size 9px
+							color #fff
+							> b
+								display inline-block
+								background-color #0373a2
+								border-radius 2px
+								padding 2px 6px
+								margin-top -2px
+					> ol
+						flex 1
+						list-style-type none
+						border-left 1px solid rgba(0, 0, 0, 0.1)
+						margin 0
+						padding 10px 0
+						> li
+							margin 0
+							vertical-align bottom
+							padding 0 0 2px 0
+							text-transform uppercase
+							&:last-of-type
+								padding 0
+							&:before
+								content ' '
+								display inline-block
+								width 20px
+								height 20px
+								vertical-align top
+								padding 0 0 0 18px
+								background-position center
+								background-repeat no-repeat
+								background-image url('/img/icn-stop.png')
+								background-size 9px 17px
+							&:first-of-type:before
+								background-image url('/img/icn-pickup.png')
+								background-size 18.5px 19px
+							&:last-of-type:before
+								background-image url('/img/icn-dropoff.png')
+								background-size 18px 18px

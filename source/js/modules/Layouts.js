@@ -48,7 +48,7 @@ function ($, _, Backbone, app,
 		footer: [
 			{
 				href: '/bookings/available',
-				label: 'Available Jobs',
+				label: 'New Bookings',
 				type: 'available'
 			}, {
 				href: '/bookings/schedule',
@@ -73,11 +73,21 @@ function ($, _, Backbone, app,
 		template: 'layouts/schedule',
 		header: {
 			title: 'My Schedule'
+		},
+		afterRender: function () {
+			window.scrollTo(0, 40);
 		}
 	});
 
-	Views.Available = Views.Navigation.extend({
-		template: 'layouts/available',
+	Views.AvailableCurrent = Views.Navigation.extend({
+		template: 'layouts/availableCurrent',
+		header: {
+			title: 'Available Jobs'
+		}
+	});
+
+	Views.AvailableAdvanced = Views.Navigation.extend({
+		template: 'layouts/availableAdvanced',
 		header: {
 			title: 'Available Jobs'
 		}

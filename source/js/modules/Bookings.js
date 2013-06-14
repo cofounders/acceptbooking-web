@@ -141,6 +141,7 @@ define(['jquery', 'underscore', 'backbone', 'app',
 			}
 		];
 		_.each(bookings, function (booking) {
+			booking.id = Math.ceil(Math.random() * 50000);
 			_.each(booking.route, function (stop) {
 				var directionLng = Math.random() > 0.5 ? 1 : -1;
 				var directionLat = Math.random() > 0.5 ? 1 : -1;
@@ -165,8 +166,10 @@ define(['jquery', 'underscore', 'backbone', 'app',
 		}
 	});
 
-	Collections.Available = Backbone.Collection.extend({
-		model: Models.Booking,
+	Collections.Current = Collections.Schedule.extend({
+		url: function () {
+			return app.api('bookings/current/:lat/:lng/', this.options);
+		},
 		initialize: function (models, options) {
 			this.options = options || {};
 		},
@@ -174,21 +177,17 @@ define(['jquery', 'underscore', 'backbone', 'app',
 			this.options.lat = location.lat;
 			this.options.lng = location.lng;
 			return this;
-		},
-		url: function () {
-			return app.api('bookings/available/:lat/:lng/', this.options);
-		},
-		fetch: function () {
-			var that = this;
-			setTimeout(function () {
-				that.reset(dummyBookings());
-				that.trigger('sync');
-			}, 500);
 		}
 	});
 
-	Views.Schedule = Backbone.View.extend({
-		template: 'bookings/schedule',
+	Collections.Advanced = Collections.Schedule.extend({
+		url: function () {
+			return app.api('bookings/advanced/');
+		}
+	});
+
+	Views.List = Backbone.View.extend({
+		template: 'bookings/list',
 		initialize: function () {
 			this.listenTo(this.collection, 'sync', this.render);
 		},
@@ -212,11 +211,94 @@ define(['jquery', 'underscore', 'backbone', 'app',
 		}
 	});
 
-	Views.AvailableList = Backbone.View.extend({
-		template: 'bookings/availableList',
-		initialize: function () {
-			this.listenTo(this.collection, 'sync', this.render);
+	Views.ListCurrent = Views.List.extend({
+		serialize: function () {
+			var that = this;
+			var list = Views.List.prototype.serialize.apply(this, arguments);
+			if (list.calendar.length >= 1) {
+				var today = list.calendar[0];
+				today.pretty = 'Nearby booking requests';
+				_.each(today.bookings, function (booking) {
+					var coordinates = booking.route[0];
+					var pickup = new L.LatLng(
+						coordinates.lat,
+						coordinates.lng
+					);
+					var distance = pickup.distanceTo([
+						that.collection.options.lat,
+						that.collection.options.lng
+					]);
+					booking.distance = Math.ceil(distance / 1000);
+					booking.eta = '~' +
+						Math.ceil(2 + Math.random() * booking.distance) +
+						'min';
+					delete booking.time;
+				});
+			}
+			return list;
 		}
+	});
+
+	Views.ListAdvanced = Views.List.extend({
+		serialize: function () {
+			var that = this;
+			var list = Views.List.prototype.serialize.apply(this, arguments);
+			_.each(list.calendar, function (day) {
+				_.each(day.bookings, function (booking) {
+					var chance = Math.random();
+					if (chance < 0.2) {
+						booking.duration = 'All day';
+						console.log(booking);
+					} else if (chance < 0.5) {
+						booking.until = Math.round(12 + Math.random() * 12) +
+							':' +
+							Math.round(10 + Math.random() * 50);
+					}
+				})
+			})
+			return list;
+		}
+	});
+
+	Views.AvailableCurrent = Backbone.View.extend({
+		template: 'bookings/availableCurrent',
+		watchPosition: null,
+		initialize: function () {
+			var that = this;
+			this.watchPosition = navigator.geolocation.watchPosition(
+				function (geoposition) {
+					var position = new L.LatLng(
+						geoposition.coords.latitude,
+						geoposition.coords.longitude
+					);
+					that.collection.setLocation(position);
+					that.collection.fetch();
+				},
+				function () {},
+				{enableHighAccuracy: true}
+			);
+		},
+		beforeRender: function () {
+			this.setViews({
+				'#bookings-list': new Views.ListCurrent({
+					collection: this.collection
+				})
+			});
+		},
+		cleanup: function () {
+			navigator.geolocation.clearWatch(this.watchPosition);
+		}
+	});
+
+	Views.AvailableAdvanced = Backbone.View.extend({
+		template: 'bookings/availableAdvanced',
+		beforeRender: function () {
+			this.setViews({
+				'#bookings-list': new Views.ListAdvanced({
+					collection: this.collection
+				})
+			});
+		},
 	});
 
 	Views.AvailableMap = Backbone.View.extend({
@@ -239,9 +321,6 @@ define(['jquery', 'underscore', 'backbone', 'app',
 				attribution: '&copy; OpenStreetMap, CloudMade',
 				key: 'BC9A493B41014CAABB98F0471D759707'
 			}).addTo(map);
-			// L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-			//	attribution: '&copy; OpenStreetMap'
-			// }).addTo(map);
 			map.setView([1.3667, 103.7500], 11);
 			map.on('drag', function () {
 				map.stopLocate();
@@ -256,6 +335,9 @@ define(['jquery', 'underscore', 'backbone', 'app',
 					.fetch();
 			}, 1000));
 			this.locateMe();
+		},
+		cleanup: function () {
+			this.map.stopLocate();
 		},
 		locateMe: function (event) {
 			this.map.stopLocate();
