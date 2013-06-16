@@ -40,7 +40,7 @@ function ($, _, Backbone, app,
 
 	Views.Navigation = Views.Base.extend({
 		initialize: function (options) {
-			window.scrollTo(0, 0);
+			window.scrollTo(0, this.scrollInitialY);
 			if (this.header) {
 				var header = _.defaults(this.header, this.controls);
 				this.setViews({
@@ -54,6 +54,30 @@ function ($, _, Backbone, app,
 					})
 				});
 			}
+		},
+		afterRender: function () {
+			window.scrollTo(0, this.scrollInitialY + 1);
+			window.scrollTo(0, this.scrollInitialY);
+			this.scrollPositionY = this.scrollInitialY;
+			$(window).off('scroll.navigation');
+			$(window).on('scroll.navigation', this.scroll.bind(this));
+		},
+		cleanup: function () {
+			$(window).off('scroll.navigation');
+		},
+		scrollInitialY: 0,
+		scrollPositionY: 0,
+		scroll: function () {
+			if (this.scrollPositionY < window.pageYOffset) {
+				this.$el
+					.removeClass('scrolling-up')
+					.addClass('scrolling-down');
+			} else if (this.scrollPositionY > window.pageYOffset) {
+				this.$el
+					.removeClass('scrolling-down')
+					.addClass('scrolling-up');
+			}
+			this.scrollPositionY = window.pageYOffset;
 		},
 		controls: {
 			before: {
@@ -94,9 +118,7 @@ function ($, _, Backbone, app,
 		header: {
 			title: 'My Schedule'
 		},
-		afterRender: function () {
-			window.scrollTo(0, 40);
-		}
+		scrollInitialY: 40
 	});
 
 	Views.AvailableCurrent = Views.Navigation.extend({
