@@ -65,19 +65,19 @@ function ($, _, Backbone, app,
 		cleanup: function () {
 			$(window).off('scroll.navigation');
 		},
+		scrollThresholdTop: 45,
 		scrollInitialY: 0,
 		scrollPositionY: 0,
 		scroll: function () {
-			if (this.scrollPositionY < window.pageYOffset) {
-				this.$el
-					.removeClass('scrolling-up')
-					.addClass('scrolling-down');
-			} else if (this.scrollPositionY > window.pageYOffset) {
-				this.$el
-					.removeClass('scrolling-down')
-					.addClass('scrolling-up');
+			var pageYOffset = window.pageYOffset;
+			if (this.scrollPositionY < pageYOffset) {
+				if (pageYOffset >= this.scrollThresholdTop) {
+					this.$el.addClass('scrolling-down');
+				}
+			} else if (this.scrollPositionY > pageYOffset) {
+				this.$el.removeClass('scrolling-down');
 			}
-			this.scrollPositionY = window.pageYOffset;
+			this.scrollPositionY = pageYOffset;
 		},
 		controls: {
 			before: {
@@ -176,7 +176,6 @@ function ($, _, Backbone, app,
 		},
 		controls: {
 			after: {
-				direction: 'next',
 				label: 'Cancel',
 				href: '/bookings/schedule'
 			}
