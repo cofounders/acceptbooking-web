@@ -59,10 +59,6 @@ function (
 		root: app.root
 	});
 
-	if (navigator.standalone === false && !navigator.userAgent.match('CriOS')) {
-		app.router.navigate('/install', {trigger: true});
-	}
-
 	$(document).ajaxError(function (event, request, settings, exception) {
 		if (+request.status === 403 && settings.url.indexOf(app.api) !== -1) {
 			// app.session.signOut();

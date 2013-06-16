@@ -13,7 +13,6 @@ define([
 
 		routes: {
 			'': 'splash',
-			'install': 'install',
 			'login': 'login',
 			'menu': 'menu',
 			'drivers/network': 'network',
@@ -29,21 +28,16 @@ define([
 			'*path': '404'
 		},
 
-		install: function () {
-			if (navigator.standalone === true) {
-				app.router.navigate('/', {
-					trigger: true,
-					replace: true
-				});
-			} else {
+		splash: function () {
+			var isMobileSafari = navigator.standalone === false &&
+					!navigator.userAgent.match('CriOS');
+			if (isMobileSafari) {
 				app.useLayout(Layouts.Views.Install, {
 				}).render();
+			} else {
+				app.useLayout(Layouts.Views.Splash, {
+				}).render();
 			}
-		},
-
-		splash: function () {
-			app.useLayout(Layouts.Views.Splash, {
-			}).render();
 		},
 
 		login: function () {
