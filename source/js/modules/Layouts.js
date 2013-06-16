@@ -59,11 +59,14 @@ function ($, _, Backbone, app,
 			window.scrollTo(0, this.scrollInitialY + 1);
 			window.scrollTo(0, this.scrollInitialY);
 			this.scrollPositionY = this.scrollInitialY;
-			$(window).off('scroll.navigation');
-			$(window).on('scroll.navigation', _.bind(this.scroll, this));
+			$(window).off('scroll.navigation touchmove.navigation');
+			$(window).on(
+				'scroll.navigation touchmove.navigation',
+				_.bind(this.scroll, this)
+			);
 		},
 		cleanup: function () {
-			$(window).off('scroll.navigation');
+			$(window).off('scroll.navigation touchmove.navigation');
 		},
 		scrollThresholdTop: 45,
 		scrollInitialY: 0,
