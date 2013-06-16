@@ -19,7 +19,18 @@ function ($, _, Backbone, app,
 	});
 
 	Views.Splash = Views.Base.extend({
-		template: 'layouts/splash'
+		template: 'layouts/splash',
+		afterRender: function () {
+			this.skip = setTimeout(function () {
+				app.router.navigate('bookings/schedule', {
+					trigger: true,
+					replace: true
+				});
+			}, 500);
+		},
+		cleanup: function () {
+			clearTimeout(this.skip);
+		}
 	});
 
 	Views['404'] = Views.Base.extend({
@@ -29,21 +40,29 @@ function ($, _, Backbone, app,
 	Views.Navigation = Views.Base.extend({
 		initialize: function (options) {
 			window.scrollTo(0, 0);
-			this.setViews({
-				'header': new Navigation.Views.Primary(_.defaults(this.header, {
-					before: {
-						href: '/menu',
-						type: 'menu'
-					},
-					after: {
-						type: 'network',
-						href: '/drivers/network'
-					}
-				})),
-				'footer': new Navigation.Views.Secondary({
-					buttons: this.footer
-				})
-			});
+			if (this.header) {
+				var header = _.defaults(this.header, this.controls);
+				this.setViews({
+					'header': new Navigation.Views.Primary(header)
+				});
+			}
+			if (this.footer) {
+				this.setViews({
+					'footer': new Navigation.Views.Secondary({
+						buttons: this.footer
+					})
+				});
+			}
+		},
+		controls: {
+			before: {
+				href: '/menu',
+				type: 'menu'
+			},
+			after: {
+				type: 'network',
+				href: '/drivers/network'
+			}
 		},
 		footer: [
 			{
@@ -99,53 +118,47 @@ function ($, _, Backbone, app,
 
 	Views.Menu = Views.Navigation.extend({
 		template: 'layouts/menu',
-		initialize: function (options) {
-			window.scrollTo(0, 0);
-			this.setViews({
-				'header': new Navigation.Views.Primary({
-					title: 'Menu',
-					after: {
-						direction: 'next',
-						href: '/bookings/schedule',
-						label: 'Back'
-					}
-				})
-			});
-		}
+		header: {
+			title: 'Menu'
+		},
+		controls: {
+			after: {
+				direction: 'next',
+				href: 'javascript:history.back()',
+				label: 'Back'
+			}
+		},
+		footer: false
 	});
 
 	Views.Network = Views.Navigation.extend({
 		template: 'layouts/network',
-		initialize: function (options) {
-			window.scrollTo(0, 0);
-			this.setViews({
-				'header': new Navigation.Views.Primary({
-					title: 'Network',
-					before: {
-						direction: 'prev',
-						href: '/bookings/schedule',
-						label: 'Back'
-					}
-				})
-			});
-		}
+		header: {
+			title: 'Network'
+		},
+		controls: {
+			before: {
+				direction: 'prev',
+				href: 'javascript:history.back()',
+				label: 'Back'
+			}
+		},
+		footer: false
 	});
 
 	Views.Add = Views.Navigation.extend({
 		template: 'layouts/add',
-		initialize: function (options) {
-			window.scrollTo(0, 0);
-			this.setViews({
-				'header': new Navigation.Views.Primary({
-					title: 'Add a Booking',
-					after: {
-						direction: 'next',
-						label: 'Cancel',
-						href: '/bookings/schedule'
-					}
-				})
-			});
-		}
+		header: {
+			title: 'Add a Booking'
+		},
+		controls: {
+			after: {
+				direction: 'next',
+				label: 'Cancel',
+				href: '/bookings/schedule'
+			}
+		},
+		footer: false
 	});
 
 	Views.Login = Views.Base.extend({

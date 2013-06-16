@@ -31,7 +31,10 @@ define([
 
 		install: function () {
 			if (navigator.standalone === true) {
-				app.router.navigate('/', {trigger: true});
+				app.router.navigate('/', {
+					trigger: true,
+					replace: true
+				});
 			} else {
 				app.useLayout(Layouts.Views.Install, {
 				}).render();
@@ -97,7 +100,10 @@ define([
 		},
 
 		available: function () {
-			this.navigate('bookings/available/current', {trigger: true});
+			this.navigate('bookings/available/current', {
+				trigger: true,
+				replace: true
+			});
 		},
 
 		availableCurrent: function () {
