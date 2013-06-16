@@ -39,6 +39,12 @@ define(['jquery', 'underscore', 'backbone', 'app',
 		}
 	});
 
+	Collections.Search = Backbone.Collection.extend({
+	});
+
+	Views.Search = Backbone.View.extend({
+	});
+
 	return {
 		Models: Models,
 		Collections: Collections,

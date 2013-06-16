@@ -1,13 +1,15 @@
 define([
 	'jquery', 'underscore', 'backbone', 'app',
 	'modules/Bookings',
-	'modules/Geocode',
-	'modules/Layouts'
+	'modules/Geocodes',
+	'modules/Layouts',
+	'modules/Locations'
 ], function (
 	$, _, Backbone, app,
 	Bookings,
-	Geocode,
-	Layouts
+	Geocodes,
+	Layouts,
+	Locations
 ) {
 	return Backbone.Router.extend({
 
@@ -25,6 +27,7 @@ define([
 			'bookings/available/current': 'availableCurrent',
 			'bookings/available/advanced': 'availableAdvanced',
 			'bookings/available/map': 'availableMap',
+			'bookings/available/map/search': 'availableMapSearch',
 			'*path': '404'
 		},
 
@@ -123,7 +126,7 @@ define([
 
 		availableMap: function () {
 			var bookings = new Bookings.Collections.Current();
-			var geocode = new Geocode.Models.Reverse();
+			var geocode = new Geocodes.Models.Reverse();
 			app.useLayout(Layouts.Views.AvailableMap, {
 			}).setViews({
 				'section': new Bookings.Views.AvailableMap({
@@ -131,6 +134,25 @@ define([
 					model: geocode
 				})
 			}).render();
+		},
+
+		availableMapSearch: function () {
+			var recent = new Locations.Collections.Recent();
+			var search = new Geocodes.Collections.Search();
+			app.useLayout(Layouts.Views.AvailableMapSearch, {
+			}).setViews({
+				'article #search': new Bookings.Views.AvailableMapSearch({
+					recent: recent,
+					search: search
+				}),
+				'article #results': new Geocodes.Views.Search({
+					search: search
+				}),
+				'article #recent': new Locations.Views.Recent({
+					recent: recent
+				})
+			}).render();
+			recent.fetch();
 		},
 
 		404: function () {

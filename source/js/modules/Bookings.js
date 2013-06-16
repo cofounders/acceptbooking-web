@@ -1,9 +1,9 @@
 define(['jquery', 'underscore', 'backbone', 'app',
 	'leaflet',
-	'modules/Geocode'
+	'modules/Geocodes'
 ], function ($, _, Backbone, app,
 	L,
-	Geocode
+	Geocodes
 ) {
 	var Models = {};
 	var Collections = {};
@@ -374,6 +374,22 @@ define(['jquery', 'underscore', 'backbone', 'app',
 				this.map.removeLayer(this.pickups);
 			}
 			this.pickups = L.geoJson(bookings).addTo(this.map);
+		}
+	});
+
+	Views.AvailableMapSearch = Backbone.View.extend({
+		template: 'bookings/availableMapSearch',
+		initialize: function (options) {
+			this.options = options;
+		},
+		events: {
+			'submit header > form': 'search'
+		},
+		search: function (event) {
+			var query = this.$el.find('header > input').val();
+			this.options.results.setQuery(query);
+			this.options.results.fetch();
+			event.preventDefault();
 		}
 	});
 
