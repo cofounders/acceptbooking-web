@@ -25,9 +25,8 @@
 		font-size 0
 		z-index 1
 		transition transform .2s ease-in-out
-
-#app.scrolling-down > .layout.navigation
-	> header
-		transform translateY(-55px)
-	> footer
-		transform translateY(55px)
+	&.scrolling-down
+		> header
+			transform translateY(-55px)
+		> footer
+			transform translateY(55px)
