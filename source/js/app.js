@@ -48,9 +48,7 @@ define([
 				if (this.layout) {
 					this.layout.remove();
 				}
-				this.layout = new Constructor(_.extend({
-					el: false,
-				}, options));
+				this.layout = new Constructor(options);
 				$(app.el).empty().append(this.layout.el);
 			}
 
