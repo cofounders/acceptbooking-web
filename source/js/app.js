@@ -23,7 +23,8 @@ define([
 			if (!hasSlash) {
 				apiBasePath += '/';
 			}
-			return url(apiBasePath + endpoint + '?format=json', _.clone(fields));
+			var path = apiBasePath + endpoint + '?format=json';
+			return url(path, _.clone(fields));
 		},
 
 		useLayout: function (layout, options) {
