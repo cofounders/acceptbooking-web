@@ -142,6 +142,20 @@ function ($, _, Backbone, app,
 		template: 'layouts/availableMap'
 	});
 
+	Views.AvailableMapSearch = Views.Navigation.extend({
+		template: 'layouts/availableMapSearch',
+		header: {
+			title: 'Search'
+		},
+		controls: {
+			before: {
+				label: 'Cancel',
+				href: '/bookings/available/map'
+			}
+		},
+		footer: false
+	});
+
 	Views.Menu = Views.Navigation.extend({
 		template: 'layouts/menu',
 		header: {
