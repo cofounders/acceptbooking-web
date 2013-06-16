@@ -60,7 +60,7 @@ function ($, _, Backbone, app,
 			window.scrollTo(0, this.scrollInitialY);
 			this.scrollPositionY = this.scrollInitialY;
 			$(window).off('scroll.navigation');
-			$(window).on('scroll.navigation', this.scroll.bind(this));
+			$(window).on('scroll.navigation', _.bind(this.scroll, this));
 		},
 		cleanup: function () {
 			$(window).off('scroll.navigation');
