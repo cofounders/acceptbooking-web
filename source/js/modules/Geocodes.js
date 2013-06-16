@@ -41,7 +41,9 @@ define(['jquery', 'underscore', 'backbone', 'app',
 			var that = this;
 			setTimeout(function () {
 				var response = {
-					address: dummyStreets()[0]
+					address: dummyStreets()[0],
+					lat: that.get('lat'),
+					lng: that.get('lng')
 				};
 				that.set(response);
 				if (options && options.success) {

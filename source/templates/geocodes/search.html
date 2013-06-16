@@ -4,7 +4,7 @@
 	<ol>
 		{{#each geocodes}}
 		<li>
-			<a href="/bookings/available/map/?label={{address}}&lat={{lat}}&lng={{lng}}">{{address}}</a>
+			<a href="/bookings/available/map/{{lat}}/{{lng}}/{{address}}">{{address}}</a>
 		</li>
 		{{/each}}
 	</ol>

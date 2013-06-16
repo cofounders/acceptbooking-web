@@ -27,6 +27,7 @@ define([
 			'bookings/available/current': 'availableCurrent',
 			'bookings/available/advanced': 'availableAdvanced',
 			'bookings/available/map': 'availableMap',
+			'bookings/available/map/:lat/:lng/:address': 'availableMap',
 			'bookings/available/map/search': 'availableMapSearch',
 			'*path': '404'
 		},
@@ -124,9 +125,16 @@ define([
 			bookings.fetch();
 		},
 
-		availableMap: function () {
+		availableMap: function (lat, lng, address) {
 			var bookings = new Bookings.Collections.Current();
 			var geocode = new Geocodes.Models.Reverse();
+			if (address && lat && lng) {
+				geocode.set({
+					address: address,
+					lat: lat,
+					lng: lng
+				});
+			}
 			app.useLayout(Layouts.Views.AvailableMap, {
 			}).setViews({
 				'section': new Bookings.Views.AvailableMap({

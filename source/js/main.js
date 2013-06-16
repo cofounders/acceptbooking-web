@@ -81,7 +81,9 @@ function (
 			};
 		if (isInternalLink(href, root) && !holdingModifierKey(event)) {
 			event.preventDefault();
-			Backbone.history.navigate(href.slice(root.length), true);
+			Backbone.history.navigate(href.slice(root.length), {
+				trigger: true
+			});
 		}
 	});
 

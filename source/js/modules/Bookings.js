@@ -320,7 +320,9 @@ define(['jquery', 'underscore', 'backbone', 'app',
 				attribution: '&copy; OpenStreetMap, CloudMade',
 				key: 'BC9A493B41014CAABB98F0471D759707'
 			}).addTo(map);
-			map.setView([1.3667, 103.7500], 11);
+			var lat = this.model.get('lat') || 1.3667;
+			var lng = this.model.get('lng') || 103.7500;
+			map.setView([lat, lng], 11);
 			map.on('drag', function () {
 				map.stopLocate();
 			});
@@ -333,7 +335,11 @@ define(['jquery', 'underscore', 'backbone', 'app',
 					.setLocation(location)
 					.fetch();
 			}, 1000));
-			this.locateMe();
+			if (this.model.has('address')) {
+				this.updateGeocode();
+			} else {
+				this.locateMe();
+			}
 		},
 		cleanup: function () {
 			this.map.stopLocate();
