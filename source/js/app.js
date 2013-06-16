@@ -46,11 +46,12 @@ define([
 			) {
 				var Constructor = layout;
 				if (this.layout) {
-					this.layout.removeView();
+					this.layout.remove();
 				}
 				this.layout = new Constructor(_.extend({
-					el: app.el
+					el: false,
 				}, options));
+				$(app.el).empty().append(this.layout.el);
 			}
 
 			return this.layout;
