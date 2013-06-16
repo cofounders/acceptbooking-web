@@ -19,7 +19,18 @@ function ($, _, Backbone, app,
 	});
 
 	Views.Splash = Views.Base.extend({
-		template: 'layouts/splash'
+		template: 'layouts/splash',
+		afterRender: function () {
+			this.skip = setTimeout(function () {
+				app.router.navigate('bookings/schedule', {
+					trigger: true,
+					replace: true
+				});
+			}, 500);
+		},
+		cleanup: function () {
+			clearTimeout(this.skip);
+		}
 	});
 
 	Views['404'] = Views.Base.extend({
