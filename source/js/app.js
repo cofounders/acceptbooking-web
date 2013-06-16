@@ -18,12 +18,13 @@ define([
 		constants: constants,
 
 		api: function (endpoint, fields) {
-			var apiBasePath = '/api';
+			var apiBasePath = '/api/api/v1';
 			var hasSlash = /\/$/.test(apiBasePath) || /^\//.test(endpoint);
 			if (!hasSlash) {
 				apiBasePath += '/';
 			}
-			return url(apiBasePath + endpoint, _.clone(fields));
+			var path = apiBasePath + endpoint + '?format=json';
+			return url(path, _.clone(fields));
 		},
 
 		useLayout: function (layout, options) {
