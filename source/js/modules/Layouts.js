@@ -1,3 +1,4 @@
+/*jshint scripturl:true*/
 define(['jquery', 'underscore', 'backbone', 'app',
 	'modules/Navigation'
 ],
