@@ -141,15 +141,15 @@ define([
 			var search = new Geocodes.Collections.Search();
 			app.useLayout(Layouts.Views.AvailableMapSearch, {
 			}).setViews({
-				'article #search': new Bookings.Views.AvailableMapSearch({
+				'article > #search': new Bookings.Views.AvailableMapSearch({
 					recent: recent,
 					search: search
 				}),
-				'article #results': new Geocodes.Views.Search({
-					search: search
+				'article > #results': new Geocodes.Views.Search({
+					collection: search
 				}),
-				'article #recent': new Locations.Views.Recent({
-					recent: recent
+				'article > #recent': new Locations.Views.Recent({
+					collection: recent
 				})
 			}).render();
 			recent.fetch();

@@ -383,12 +383,12 @@ define(['jquery', 'underscore', 'backbone', 'app',
 			this.options = options;
 		},
 		events: {
-			'submit header > form': 'search'
+			'submit': 'search'
 		},
 		search: function (event) {
-			var query = this.$el.find('header > input').val();
-			this.options.results.setQuery(query);
-			this.options.results.fetch();
+			var query = this.$el.find('input[type="search"]').val();
+			this.options.search.setQuery(query);
+			this.options.search.fetch();
 			event.preventDefault();
 		}
 	});

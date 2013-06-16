@@ -1,0 +1,12 @@
+<section class="geocodes search">
+	{{#if geocodes.length}}
+	<h3>Search results for "<i>{{query}}</i>"</h3>
+	<ol>
+		{{#each geocodes}}
+		<li>
+			<a href="/bookings/available/map/?label={{address}}&lat={{lat}}&lng={{lng}}">{{address}}</a>
+		</li>
+		{{/each}}
+	</ol>
+	{{/if}}
+</section>
