@@ -1,8 +1,12 @@
 define(['jquery', 'underscore', 'backbone', 'app',
+	'constants',
 	'leaflet',
+	'moment',
 	'modules/Geocodes'
 ], function ($, _, Backbone, app,
+	constants,
 	L,
+	moment,
 	Geocodes
 ) {
 	var Models = {};
@@ -155,14 +159,10 @@ define(['jquery', 'underscore', 'backbone', 'app',
 	Collections.Schedule = Backbone.Collection.extend({
 		model: Models.Booking,
 		url: function () {
-			return app.api('bookings/schedule/');
+			return app.api('bookings/');
 		},
-		fetch: function () {
-			var that = this;
-			setTimeout(function () {
-				that.reset(dummyBookings());
-				that.trigger('sync');
-			}, 500);
+		parse: function (response) {
+			return response.objects;
 		}
 	});
 
@@ -192,15 +192,24 @@ define(['jquery', 'underscore', 'backbone', 'app',
 			this.listenTo(this.collection, 'sync', this.render);
 		},
 		serialize: function () {
-			var byDate = _.groupBy(this.collection.toJSON(), 'date');
-			var dates = _.keys(byDate).sort();
 			var isActive = function (booking) {
-				return !!booking.active;
+				return booking.status === constants.BOOKING.STATUS.ACTIVE;
 			};
+			var bookings = _.map(
+				this.collection.toJSON(),
+				function (booking) {
+					booking.active = isActive(booking);
+					booking.time = moment(booking.pickup_time).format('HH:MM');
+					return booking;
+				});
+			var trimDay = function (booking) {
+				return moment(booking.pickup_time).format('YYYY-MM-DD');
+			};
+			var byDate = _.groupBy(bookings, trimDay);
+			var dates = _.keys(byDate).sort();
 			var calendar = _.map(dates, function (date) {
 				return {
-					date: date,
-					pretty: date,
+					pretty: moment(date).format('dddd, MMMM Do'),
 					active: _.any(byDate[date], isActive),
 					bookings: byDate[date]
 				};

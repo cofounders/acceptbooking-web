@@ -19,6 +19,8 @@ require.config({
 			'/0.8.8/backbone.layoutmanager.min',
 		leaflet: '//cdnjs.cloudflare.com' +
 			'/ajax/libs/leaflet/0.5.1/leaflet',
+		moment: '//cdnjs.cloudflare.com' +
+			'/ajax/libs/moment.js/2.0.0/moment.min',
 		mustache: '//cdnjs.cloudflare.com' +
 			'/ajax/libs/mustache.js/0.7.0/mustache.min',
 		underscore: '//cdnjs.cloudflare.com' +
@@ -48,6 +50,9 @@ require.config({
 		},
 		leaflet: {
 			exports: 'L'
+		},
+		moment: {
+			exports: 'moment'
 		},
 		mustache: {
 			exports: 'mustache'
