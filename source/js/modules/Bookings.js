@@ -248,11 +248,10 @@ define(['jquery', 'underscore', 'backbone', 'app',
 					var chance = Math.random();
 					if (chance < 0.2) {
 						booking.duration = 'All day';
-						console.log(booking);
 					} else if (chance < 0.5) {
-						booking.until = Math.round(12 + Math.random() * 12) +
-							':' +
-							Math.round(10 + Math.random() * 50);
+						var hours = Math.round(4 + Math.random() * 20);
+						var minutes = 15 * Math.round(1 + Math.random() * 2);
+						booking.until = hours + ':' + minutes;
 					}
 				});
 			});
