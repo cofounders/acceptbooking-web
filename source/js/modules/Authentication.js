@@ -5,6 +5,12 @@ define(['jquery', 'underscore', 'backbone', 'app'
 	var Collections = {};
 	var Views = {};
 
+	Models.Pin = Backbone.Model.extend({
+		url: function () {
+			return app.api('/drivers/login/pin', this.options);
+		}
+	});
+
 	Views.Login = Backbone.View.extend({
 		template: 'authentication/login',
 		initialize: function (options) {
@@ -28,12 +34,25 @@ define(['jquery', 'underscore', 'backbone', 'app'
 		},
 		pin: function (event) {
 			event.preventDefault();
+			var that = this;
 			var country = this.$el.find('[name="country"]').val();
 			var phone = this.$el.find('[name="phone"]').val();
-			var cnonce =this.$el.find('[name="cnonce"]').val();
-			app.router.navigate(
-				'login/pin/' + cnonce + '/' + country + '/' + phone, {
-				trigger: true
+			var cnonce = this.$el.find('[name="cnonce"]').val();
+
+			var pin = new Models.Pin({
+				cnonce: cnonce,
+				phone: this.options.country + this.options.phone,
+			});
+			pin.save({
+				success: function () {
+					app.router.navigate(
+						'login/pin/' + cnonce + '/' + country + '/' + phone, {
+						trigger: true
+					});
+				},
+				error: function () {
+					that.$el.addClass('error');
+				}
 			});
 		}
 	});
@@ -55,12 +74,22 @@ define(['jquery', 'underscore', 'backbone', 'app'
 		},
 		login: function (event) {
 			event.preventDefault();
+			var that = this;
 			var cnonce = this.$el.find('[name="cnonce"]').val();
 			var pin = this.$el.find('[name="pin"]').val();
+			this.$el.removeClass('error');
 			app.session.signIn({
 				cnonce: cnonce,
 				phone: this.options.country + this.options.phone,
-				pin: pin
+				pin: pin,
+				success: function () {
+					app.router.navigate('/bookings/schedule', {
+						trigger: true
+					});
+				},
+				error: function () {
+					that.$el.addClass('error');
+				}
 			});
 		}
 	});
