@@ -21,7 +21,7 @@ define([
 			'drivers/network': 'network',
 			'account/welcome': 'setup',
 			'login': 'login',
-			'login/pin/:country/:phone': 'pin',
+			'login/pin/:cnonce/:country/:phone': 'pin',
 			'bookings/add': 'add',
 			'bookings/current': 'current',
 			'bookings/assigned': 'assigned',
@@ -55,10 +55,11 @@ define([
 			}).render();
 		},
 
-		pin: function (country, phone) {
+		pin: function (cnonce, country, phone) {
 			app.useLayout(Layouts.Views.Pin, {
 			}).setViews({
 				'article': new Authentication.Views.Pin({
+					cnonce: cnonce,
 					country: country,
 					phone: phone
 				})

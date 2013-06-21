@@ -17,6 +17,8 @@
 				inset 0 1px 0 #fff
 			background-image linear-gradient(bottom, mix(#dadada, rgba(246, 246, 246, 0.69)) 0%, mix(#f8f8f8, rgba(246, 246, 246, 0.69)) 100%)
 			&:disabled
+				opacity 1
+				color black
 				box-shadow 2px 2px 2px rgba(255, 255, 255, 0.35),
 					inset 1px 1px 0 rgba(0, 0, 0, 0.08)
 		> [name="code"]
@@ -36,23 +38,18 @@
 		appearance none
 		text-align center
 		color #656565
-		font-size 18px
+		font-size 30px
+		font-weight 700
 		margin 1em 0
-		padding 10px 0
+		padding 3px 0
 		display block
 		width 100%
 		background-color #fff
 		box-shadow 0 0 5px #0098dc,
 			inset 1px 1px 0 rgba(0, 0, 0, 0.1)
 		&::-webkit-input-placeholder
+			padding 5px 0
+			font-size 18px
 			font-style italic
-			color #cdcdcd
-		&:-moz-placeholder
-			font-style italic
-			color #cdcdcd
-		&::-moz-placeholder
-			font-style italic
-			color #cdcdcd
-		&:-ms-input-placeholder
-			font-style italic
+			font-weight 600
 			color #cdcdcd

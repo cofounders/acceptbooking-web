@@ -13,6 +13,11 @@ define(['jquery', 'underscore', 'backbone', 'app'
 		afterRender: function () {
 			this.updateCode();
 		},
+		serialize: function () {
+			return {
+				cnonce: Math.floor(Math.random() * Math.pow(2, 53))
+			};
+		},
 		events: {
 			'submit': 'pin',
 			'change [name="country"]': 'updateCode'
@@ -25,7 +30,9 @@ define(['jquery', 'underscore', 'backbone', 'app'
 			event.preventDefault();
 			var country = this.$el.find('[name="country"]').val();
 			var phone = this.$el.find('[name="phone"]').val();
-			app.router.navigate('login/pin/' + country + '/' + phone, {
+			var cnonce =this.$el.find('[name="cnonce"]').val();
+			app.router.navigate(
+				'login/pin/' + cnonce + '/' + country + '/' + phone, {
 				trigger: true
 			});
 		}
@@ -38,6 +45,7 @@ define(['jquery', 'underscore', 'backbone', 'app'
 		},
 		serialize: function () {
 			return {
+				cnonce: this.options.cnonce,
 				phone: '+' + this.options.country + ' ' +
 					this.options.phone
 			};
@@ -47,10 +55,11 @@ define(['jquery', 'underscore', 'backbone', 'app'
 		},
 		login: function (event) {
 			event.preventDefault();
+			var cnonce = this.$el.find('[name="cnonce"]').val();
 			var pin = this.$el.find('[name="pin"]').val();
 			app.session.signIn({
-				country: this.options.country,
-				phone: this.options.phone,
+				cnonce: cnonce,
+				phone: this.options.country + this.options.phone,
 				pin: pin
 			});
 		}
