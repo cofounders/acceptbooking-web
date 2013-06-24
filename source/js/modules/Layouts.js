@@ -192,12 +192,20 @@ function ($, _, Backbone, app,
 			title: 'Add a Booking'
 		},
 		controls: {
-			after: {
+			before: {
 				label: 'Cancel',
-				href: '/bookings/schedule'
+				href: 'javascript:history.back()'
+			},
+			after: {
+				label: 'Save',
+				href: '/bookings/details'
 			}
 		},
 		footer: false
+	});
+
+	Views.Details = Views.Navigation.extend({
+		template: 'layouts/details'
 	});
 
 	Views.Login = Views.Base.extend({

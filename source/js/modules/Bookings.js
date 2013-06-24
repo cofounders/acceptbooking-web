@@ -408,6 +408,24 @@ define(['jquery', 'underscore', 'backbone', 'app',
 		}
 	});
 
+	Views.Add = Backbone.View.extend({
+		template: 'bookings/add',
+		events: {
+			'focusin': 'highlight',
+			'focusout': 'deselect',
+			'click .insert': 'stop'
+		},
+		highlight: function (event) {
+			$(event.target).closest('label').addClass('active');
+		},
+		deselect: function (event) {
+			$(event.target).closest('label').removeClass('active');
+		},
+		stop: function (event) {
+			event.preventDefault();
+		}
+	});
+
 	return {
 		Models: Models,
 		Collections: Collections,

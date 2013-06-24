@@ -71,6 +71,13 @@ define([
 		add: function () {
 			app.useLayout(Layouts.Views.Add, {
 			}).setViews({
+				'article': new Bookings.Views.Add()
+			}).render();
+		},
+
+		details: function () {
+			app.useLayout(Layouts.Views.Details, {
+			}).setViews({
 			}).render();
 		},
 
