@@ -13,7 +13,11 @@ define(['jquery', 'underscore', 'backbone', 'app',
 	var Collections = {};
 	var Views = {};
 
-	Models.Booking = Backbone.Model.extend({});
+	Models.Booking = Backbone.Model.extend({
+		url: function () {
+			return app.api('bookings/:id', this);
+		}
+	});
 
 	var dummyBookings = function () {
 		var bookings = [
@@ -405,6 +409,16 @@ define(['jquery', 'underscore', 'backbone', 'app',
 			this.options.search.setQuery(query);
 			this.options.search.fetch();
 			event.preventDefault();
+		}
+	});
+
+	Views.Details = Backbone.View.extend({
+		template: 'bookings/details',
+		initialize: function (options) {
+			this.options = options;
+		},
+		serialize: function () {
+			return this.model.toJSON();
 		}
 	});
 

@@ -124,6 +124,13 @@ function ($, _, Backbone, app,
 		scrollInitialY: 40
 	});
 
+	Views.Scheduled = Views.Navigation.extend({
+		template: 'layouts/scheduled',
+		header: {
+			title: 'Booking Details'
+		}
+	});
+
 	Views.AvailableCurrent = Views.Navigation.extend({
 		template: 'layouts/availableCurrent',
 		header: {

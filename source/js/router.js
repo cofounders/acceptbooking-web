@@ -24,6 +24,7 @@ define([
 			'bookings/assigned': 'assigned',
 			'bookings/schedule': 'schedule',
 			'bookings/available': 'available',
+			'bookings/available/:id': 'scheduled',
 			'bookings/available/current': 'availableCurrent',
 			'bookings/available/advanced': 'availableAdvanced',
 			'bookings/available/map': 'availableMap',
@@ -102,6 +103,17 @@ define([
 				trigger: true,
 				replace: true
 			});
+		},
+
+		scheduled: function (id) {
+			var booking = new Bookings.Models.Booking({id: id});
+			app.useLayout(Layouts.Views.Scheduled, {
+			}).setViews({
+				'article': new Bookings.Views.Details({
+					model: booking
+				})
+			}).render();
+			booking.fetch();
 		},
 
 		availableCurrent: function () {
