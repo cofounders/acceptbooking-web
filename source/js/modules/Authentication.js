@@ -44,10 +44,10 @@ define(['jquery', 'underscore', 'backbone', 'app'
 
 			var pin = new Models.Pin({
 				cnonce: cnonce,
-				networks: 1,
+				networks: ['/api/v1/networks/1/'],
 				phone: '+' + country + phone
 			});
-			pin.save({
+			pin.save(null, {
 				success: function () {
 					app.router.navigate(
 						'login/pin/' + cnonce + '/' + country + '/' + phone, {
