@@ -55,33 +55,7 @@ function ($, _, Backbone, app,
 				});
 			}
 		},
-		afterRender: function () {
-			window.scrollTo(0, this.scrollInitialY + 1);
-			window.scrollTo(0, this.scrollInitialY);
-			this.scrollPositionY = this.scrollInitialY;
-			$(window).off('scroll.navigation touchmove.navigation');
-			$(window).on(
-				'scroll.navigation touchmove.navigation',
-				_.bind(this.scroll, this)
-			);
-		},
-		cleanup: function () {
-			$(window).off('scroll.navigation touchmove.navigation');
-		},
-		scrollThresholdTop: 45,
 		scrollInitialY: 0,
-		scrollPositionY: 0,
-		scroll: function () {
-			var pageYOffset = window.pageYOffset;
-			if (this.scrollPositionY < pageYOffset) {
-				if (pageYOffset >= this.scrollThresholdTop) {
-					this.$el.addClass('scrolling-down');
-				}
-			} else if (this.scrollPositionY > pageYOffset) {
-				this.$el.removeClass('scrolling-down');
-			}
-			this.scrollPositionY = pageYOffset;
-		},
 		controls: {
 			before: {
 				href: '/menu',
@@ -109,14 +83,43 @@ function ($, _, Backbone, app,
 		]
 	});
 
-	Views.Assigned = Views.Navigation.extend({
+	Views.Sticky = Views.Navigation.extend({
+		scrollThresholdTop: 45,
+		_scrollPositionY: 0,
+		afterRender: function () {
+			window.scrollTo(0, this.scrollInitialY + 1);
+			window.scrollTo(0, this.scrollInitialY);
+			this._scrollPositionY = this.scrollInitialY;
+			$(window).off('scroll.navigation touchmove.navigation');
+			$(window).on(
+				'scroll.navigation touchmove.navigation',
+				_.bind(this.scroll, this)
+			);
+		},
+		cleanup: function () {
+			$(window).off('scroll.navigation touchmove.navigation');
+		},
+		scroll: function () {
+			var pageYOffset = window.pageYOffset;
+			if (this._scrollPositionY < pageYOffset) {
+				if (pageYOffset >= this.scrollThresholdTop) {
+					this.$el.addClass('scrolling-down');
+				}
+			} else if (this._scrollPositionY > pageYOffset) {
+				this.$el.removeClass('scrolling-down');
+			}
+			this._scrollPositionY = pageYOffset;
+		},
+	});
+
+	Views.Assigned = Views.Sticky.extend({
 		template: 'layouts/assigned',
 		header: {
 			title: 'Reassigned Jobs'
 		}
 	});
 
-	Views.Schedule = Views.Navigation.extend({
+	Views.Schedule = Views.Sticky.extend({
 		template: 'layouts/schedule',
 		header: {
 			title: 'My Schedule'
@@ -124,14 +127,14 @@ function ($, _, Backbone, app,
 		scrollInitialY: 40
 	});
 
-	Views.AvailableCurrent = Views.Navigation.extend({
+	Views.AvailableCurrent = Views.Sticky.extend({
 		template: 'layouts/availableCurrent',
 		header: {
 			title: 'Available Jobs'
 		}
 	});
 
-	Views.AvailableAdvanced = Views.Navigation.extend({
+	Views.AvailableAdvanced = Views.Sticky.extend({
 		template: 'layouts/availableAdvanced',
 		header: {
 			title: 'Available Jobs'
