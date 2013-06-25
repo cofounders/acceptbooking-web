@@ -6,11 +6,8 @@ define(['jquery', 'underscore', 'backbone', 'app'
 	var Views = {};
 
 	Models.Pin = Backbone.Model.extend({
-		initialize: function (options) {
-			this.options = options;
-		},
 		url: function () {
-			return app.api('drivers/login/pin/', this.options);
+			return app.api('drivers/login/pin/');
 		}
 	});
 
@@ -69,7 +66,7 @@ define(['jquery', 'underscore', 'backbone', 'app'
 		serialize: function () {
 			return {
 				cnonce: this.options.cnonce,
-				phone: '+' + this.options.country + ' ' +
+				phone: '+' + this.options.country +
 					this.options.phone
 			};
 		},
@@ -84,7 +81,8 @@ define(['jquery', 'underscore', 'backbone', 'app'
 			this.$el.removeClass('error');
 			app.session.signIn({
 				cnonce: cnonce,
-				phone: this.options.country + this.options.phone,
+				phone: '+' + this.options.country +
+					this.options.phone,
 				pin: pin,
 				success: function () {
 					app.router.navigate('/bookings/schedule', {
@@ -92,6 +90,7 @@ define(['jquery', 'underscore', 'backbone', 'app'
 					});
 				},
 				error: function () {
+					that.$el.find('[name="pin"]').val('');
 					that.$el.addClass('error');
 				}
 			});

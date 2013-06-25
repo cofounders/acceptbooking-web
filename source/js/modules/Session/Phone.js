@@ -5,16 +5,13 @@ define([
 	Base
 ) {
 	var Login = Backbone.Model.extend({
-		initialize: function (options) {
-			this.options = options;
-		},
 		url: function () {
-			return app.api('drivers/login/' +
-				'?phone=:phone' +
-				'&pin=:pin' +
-				'&cnonce=:cnonce',
-				this.options
-			);
+			return app.api('drivers/login/activate/');
+		},
+		parse: function (response) {
+			return {
+				api_key: response.key
+			};
 		}
 	});
 
