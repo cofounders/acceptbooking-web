@@ -64,12 +64,18 @@
 			.name
 				&:before
 					background-image url('/img/booking-details/icn-user.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-user-white.png')
 			.phone
 				&:before
 					background-image url('/img/booking-details/icn-phone.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-phone-white.png')
 			.email
 				&:before
 					background-image url('/img/booking-details/icn-email.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-email-white.png')
 		&.datetime
 			.pickup,
 			.dropoff
@@ -91,20 +97,33 @@
 					content 'Start'
 				&:before
 					background-image url('/img/booking-details/icn-time.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-time-white.png')
 			.dropoff
 				&:after
 					content 'End'
 				&:before
-					background-image url('/img/booking-details/icn-time.png')
 					transform scale(-1, 1)
+					background-image url('/img/booking-details/icn-time.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-time-white.png')
 		&.route
 			position relative
-			.pickup:before
-				background-image url('/img/booking-details/icn-pickup.png')
-			.stop:before
-				background-image url('/img/booking-details/icn-stop.png')
-			.dropoff:before
-				background-image url('/img/booking-details/icn-dropoff.png')
+			.pickup
+				&:before
+					background-image url('/img/booking-details/icn-pickup.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-pickup-white.png')
+			.stop
+				&:before
+					background-image url('/img/booking-details/icn-stop.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-stop-white.png')
+			.dropoff
+				&:before
+					background-image url('/img/booking-details/icn-dropoff.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-dropoff-white.png')
 			button
 				border none
 				position absolute
@@ -138,6 +157,9 @@
 					background-repeat no-repeat
 					background-position center
 		&.extras
-			.note:before
-				height 100%
-				background-image url('/img/booking-details/icn-notes.png')
+			.note
+				&:before
+					height 100%
+					background-image url('/img/booking-details/icn-notes.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-notes-white.png')
