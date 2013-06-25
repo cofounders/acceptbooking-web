@@ -13,7 +13,11 @@ define(['jquery', 'underscore', 'backbone', 'app',
 	var Collections = {};
 	var Views = {};
 
-	Models.Booking = Backbone.Model.extend({});
+	Models.Booking = Backbone.Model.extend({
+		url: function () {
+			return app.api('bookings/');
+		}
+	});
 
 	var dummyBookings = function () {
 		var bookings = [
@@ -411,6 +415,7 @@ define(['jquery', 'underscore', 'backbone', 'app',
 	Views.Add = Backbone.View.extend({
 		template: 'bookings/add',
 		events: {
+			'submit': 'save',
 			'focusin': 'highlight',
 			'focusout': 'deselect',
 			'click .insert': 'stop'
@@ -423,6 +428,34 @@ define(['jquery', 'underscore', 'backbone', 'app',
 		},
 		stop: function (event) {
 			event.preventDefault();
+		},
+		save: function (event) {
+			event.preventDefault();
+			var booking = new Models.Booking({});
+			booking.save({
+				name: this.$el.find('.passenger .name input').val(),
+				phone: this.$el.find('.passenger .phone input').val(),
+				email: this.$el.find('.passenger .email input').val(),
+				pickup: this.$el.find('.datetime .pickup input').val(),
+				dropoff: this.$el.find('.datetime .dropoff input').val(),
+				route: this.$el.find('.route input')
+					.map(function (index, element) {
+						return $(this).val();
+					})
+					.filter(function (index, value) {
+						return !!value;
+					})
+					.get(),
+				note: this.$el.find('.extras .note textarea').val()
+			}, {
+				success: function () {
+					app.router.navigate('bookings/schedule', {
+						trigger: true,
+						replace: true
+					});
+				},
+				error: function () {}
+			});
 		}
 	});
 
