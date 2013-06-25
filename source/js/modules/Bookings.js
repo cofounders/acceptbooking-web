@@ -419,6 +419,19 @@ define(['jquery', 'underscore', 'backbone', 'app',
 		},
 		serialize: function () {
 			return this.model.toJSON();
+		},
+		afterRender: function () {
+			var container = this.$el.find('#map').get(0);
+			var map = this.map = L.map(container);
+			var that = this;
+			L.tileLayer('http://{s}.tile.cloudmade.com' +
+				'/{key}/22677/256/{z}/{x}/{y}.png', {
+				attribution: '&copy; OpenStreetMap, CloudMade',
+				key: 'BC9A493B41014CAABB98F0471D759707'
+			}).addTo(map);
+			var lat = this.model.get('lat') || 1.3667;
+			var lng = this.model.get('lng') || 103.7500;
+			map.setView([lat, lng], 11);
 		}
 	});
 
