@@ -6,8 +6,11 @@ define(['jquery', 'underscore', 'backbone', 'app'
 	var Views = {};
 
 	Models.Pin = Backbone.Model.extend({
+		initialize: function (options) {
+			this.options = options;
+		},
 		url: function () {
-			return app.api('/drivers/login/pin', this.options);
+			return app.api('drivers/login/pin/', this.options);
 		}
 	});
 
@@ -41,7 +44,7 @@ define(['jquery', 'underscore', 'backbone', 'app'
 
 			var pin = new Models.Pin({
 				cnonce: cnonce,
-				phone: this.options.country + this.options.phone,
+				phone: '+' + country + phone
 			});
 			pin.save({
 				success: function () {
