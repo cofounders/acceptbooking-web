@@ -13,7 +13,11 @@ define(['jquery', 'underscore', 'backbone', 'app',
 	var Collections = {};
 	var Views = {};
 
-	Models.Booking = Backbone.Model.extend({});
+	Models.Booking = Backbone.Model.extend({
+		url: function () {
+			return app.api('bookings/');
+		}
+	});
 
 	var dummyBookings = function () {
 		var bookings = [
@@ -405,6 +409,60 @@ define(['jquery', 'underscore', 'backbone', 'app',
 			this.options.search.setQuery(query);
 			this.options.search.fetch();
 			event.preventDefault();
+		}
+	});
+
+	Views.Add = Backbone.View.extend({
+		template: 'bookings/add',
+		events: {
+			'submit': 'save',
+			'focusin': 'highlight',
+			'focusout': 'deselect',
+			'click .insert': 'stop'
+		},
+		highlight: function (event) {
+			$(event.target).closest('label').addClass('active');
+		},
+		deselect: function (event) {
+			$(event.target).closest('label').removeClass('active');
+		},
+		stop: function (event) {
+			event.preventDefault();
+		},
+		save: function (event) {
+			event.preventDefault();
+			var stops = this.$el.find('.route input')
+				.map(function (index, element) {
+					return $(this).val();
+				})
+				.filter(function (index, value) {
+					return !!value;
+				})
+				.get();
+			var that = this;
+			var value = function (selector) {
+				return that.$el.find(selector).val();
+			};
+			var booking = new Models.Booking({});
+			booking.save({
+				passenger: {
+					full_name: value('.passenger .name input'),
+					phone: value('.passenger .phone input'),
+					email: value('.passenger .email input')
+				},
+				pickup_time: value('.datetime .pickup input'),
+				dropoff_time: value('.datetime .dropoff input'),
+				special_instructions: value('.extras .note textarea'),
+				route: stops
+			}, {
+				success: function () {
+					app.router.navigate('bookings/schedule', {
+						trigger: true,
+						replace: true
+					});
+				},
+				error: function () {}
+			});
 		}
 	});
 
