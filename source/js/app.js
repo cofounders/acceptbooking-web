@@ -11,6 +11,8 @@ define([
 ) {
 	var app = _.extend({
 
+		defaultNetwork: '/api/v1/networks/1/',
+
 		el: '#app',
 
 		root: '/',

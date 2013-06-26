@@ -41,7 +41,7 @@ define(['jquery', 'underscore', 'backbone', 'app'
 
 			var pin = new Models.Pin({
 				cnonce: cnonce,
-				networks: ['/api/v1/networks/1/'],
+				networks: [app.defaultNetwork],
 				phone: '+' + country + phone
 			});
 			pin.save(null, {
