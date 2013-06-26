@@ -109,7 +109,7 @@ function ($, _, Backbone, app,
 				this.$el.removeClass('scrolling-down');
 			}
 			this._scrollPositionY = pageYOffset;
-		},
+		}
 	});
 
 	Views.Assigned = Views.Sticky.extend({
