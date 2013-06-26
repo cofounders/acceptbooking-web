@@ -462,20 +462,20 @@ define(['jquery', 'underscore', 'backbone', 'app',
 		},
 		save: function (event) {
 			event.preventDefault();
+			var that = this;
 			var stops = this.$el.find('.route input')
 				.map(function (index, element) {
-					return $(this).val();
+					return $(this).val().trim();
 				})
 				.filter(function (index, value) {
 					return !!value;
 				})
 				.get();
-			var that = this;
 			var value = function (selector) {
-				return that.$el.find(selector).val();
+				return that.$el.find(selector).val().trim();
 			};
+			var full_name = value('.passenger .name input');
 			var passenger = new Passengers.Models.Passenger({});
-			var full_name = value('.passenger .name input').trim();
 			passenger.save({
 				networks: [app.defaultNetwork],
 				first_name: full_name.split(/\s+/).shift(),
@@ -486,7 +486,7 @@ define(['jquery', 'underscore', 'backbone', 'app',
 				success: function () {
 					var booking = new Models.Booking({});
 					booking.save({
-						passenger: passenger.get('uri'),
+						passenger: passenger.get('resource_uri'),
 						pickup_time: value('.datetime .pickup input'),
 						dropoff_time: value('.datetime .dropoff input'),
 						special_instructions: value('.extras .note textarea'),
