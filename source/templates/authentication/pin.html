@@ -1,0 +1,13 @@
+<form id="pin" class="authentication pin">
+	<p>We have sent an SMS activation code to:</p>
+	<p class="phone">{{phone}}</p>
+	<p class="instructions">To verify your phone number,
+		please enter the 4-digit code:</p>
+	<p class="error">You might have missed something there.
+		Please try again:</p>
+	<input type="hidden" name="cnonce" value="{{cnonce}}" />
+	<input type="number" name="pin" autofocus />
+	<p class="contact">
+		<a href="/login">Resend SMS code</a> or <a href="/contact">Contact us</a>
+	</p>
+</form>
