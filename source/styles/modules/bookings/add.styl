@@ -1,0 +1,166 @@
+#app .bookings.add
+	> section
+		h2
+			text-transform uppercase
+			font-size 12px
+			color #333
+			padding 10px 0 2px 10px
+			margin 0
+		label
+			box-sizing border-box
+			display block
+			background-color #fff
+			position relative
+			border-style solid
+			border-color #eee
+			border-width 1px 0 1px 0
+			padding 0 0 0 40px
+			&.active
+				z-index 1
+				border-color #56cbe8
+				&:before
+					background-color #56cbe8
+			& + label
+				margin-top -1px
+			&:before
+				content ' '
+				position absolute
+				top 0
+				left 0
+				background-color #eee
+				height 40px
+				width 40px
+				background-repeat no-repeat
+				background-position center 11px
+				background-size auto 18px
+				display inline
+			> input,
+			> textarea
+				font-family 'Open Sans', sans-serif
+				padding 0 0 0 10px
+				border none
+				box-sizing border-box
+				width 100%
+				height 40px
+				color #333
+				font-size 12px
+			> textarea
+				resize vertical
+				padding-top 10px
+				height 6em
+				&:focus
+					outline none
+		.split
+			display flex
+			label
+				flex 1
+				margin-top 0
+				&:not(:last-child)
+					border-right 1px solid #fff
+				&:not(:last-child).active
+					border-right-color #56cbe8
+			& + label
+				margin-top -1px
+		&.passenger
+			.name
+				&:before
+					background-image url('/img/booking-details/icn-user.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-user-white.png')
+			.phone
+				&:before
+					background-image url('/img/booking-details/icn-phone.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-phone-white.png')
+			.email
+				&:before
+					background-image url('/img/booking-details/icn-email.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-email-white.png')
+		&.datetime
+			.pickup,
+			.dropoff
+				&:before
+					background-position center 10px
+				&:after
+					text-transform uppercase
+					font-size 7px
+					font-weight 700
+					position absolute
+					bottom 3px
+					left 0
+					width 40px
+					text-align center
+				&.active:after
+					color #fff
+			.pickup
+				&:after
+					content 'Start'
+				&:before
+					background-image url('/img/booking-details/icn-time.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-time-white.png')
+			.dropoff
+				&:after
+					content 'End'
+				&:before
+					transform scale(-1, 1)
+					background-image url('/img/booking-details/icn-time.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-time-white.png')
+		&.route
+			position relative
+			.pickup
+				&:before
+					background-image url('/img/booking-details/icn-pickup.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-pickup-white.png')
+			.stop
+				&:before
+					background-image url('/img/booking-details/icn-stop.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-stop-white.png')
+			.dropoff
+				&:before
+					background-image url('/img/booking-details/icn-dropoff.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-dropoff-white.png')
+			button
+				border none
+				position absolute
+				right 0
+				bottom 0
+				height 83px
+				width 45px
+				background-color transparent
+				font-size 0
+				z-index 2
+				&:before
+					content ' '
+					font-size 0
+					width 0
+					height 0
+					border-top 42px solid transparent
+					border-bottom 41px solid transparent
+					border-right 40px solid #eee
+					position absolute
+					top 0
+					right 0
+				&:after
+					content ' '
+					position absolute
+					top 0
+					right 0
+					width 25px
+					height 100%
+					background-image url('/img/booking-details/icn-addstop.png')
+					background-size auto 22px
+					background-repeat no-repeat
+					background-position center
+		&.extras
+			.note
+				&:before
+					height 100%
+					background-image url('/img/booking-details/icn-notes.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-notes-white.png')

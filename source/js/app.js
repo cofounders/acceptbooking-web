@@ -11,20 +11,24 @@ define([
 ) {
 	var app = _.extend({
 
+		defaultNetwork: '/api/v1/networks/1/',
+
 		el: '#app',
 
 		root: '/',
 
 		constants: constants,
 
-		api: function (endpoint, fields) {
+		api: function (endpoint, fields, data) {
 			var apiBasePath = '/api/api/v1';
 			var hasSlash = /\/$/.test(apiBasePath) || /^\//.test(endpoint);
 			if (!hasSlash) {
 				apiBasePath += '/';
 			}
-			var path = apiBasePath + endpoint + '?format=json';
-			return url(path, _.clone(fields));
+			var path = apiBasePath + endpoint;
+			return url(path, _.clone(fields), _.defaults({
+				format: 'json'
+			}, data));
 		},
 
 		useLayout: function (layout, options) {

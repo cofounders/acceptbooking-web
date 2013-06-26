@@ -2,18 +2,30 @@ define(['jquery', 'underscore', 'backbone', 'app',
 	'constants',
 	'leaflet',
 	'moment',
-	'modules/Geocodes'
+	'modules/Geocodes',
+	'modules/Passengers'
 ], function ($, _, Backbone, app,
 	constants,
 	L,
 	moment,
-	Geocodes
+	Geocodes,
+	Passengers
 ) {
 	var Models = {};
 	var Collections = {};
 	var Views = {};
 
-	Models.Booking = Backbone.Model.extend({});
+	Models.Booking = Backbone.Model.extend({
+		url: function () {
+			return app.api('bookings/');
+		}
+	});
+
+	Models.Details = Models.Booking.extend({
+		url: function () {
+			return app.api('bookings/:id', this);
+		}
+	});
 
 	var dummyBookings = function () {
 		var bookings = [
@@ -405,6 +417,93 @@ define(['jquery', 'underscore', 'backbone', 'app',
 			this.options.search.setQuery(query);
 			this.options.search.fetch();
 			event.preventDefault();
+		}
+	});
+
+	Views.Details = Backbone.View.extend({
+		template: 'bookings/details',
+		initialize: function (options) {
+			this.options = options;
+		},
+		serialize: function () {
+			return this.model.toJSON();
+		},
+		afterRender: function () {
+			var container = this.$el.find('#map').get(0);
+			var map = this.map = L.map(container);
+			var that = this;
+			L.tileLayer('http://{s}.tile.cloudmade.com' +
+				'/{key}/22677/256/{z}/{x}/{y}.png', {
+				attribution: '&copy; OpenStreetMap, CloudMade',
+				key: 'BC9A493B41014CAABB98F0471D759707'
+			}).addTo(map);
+			var lat = this.model.get('lat') || 1.3667;
+			var lng = this.model.get('lng') || 103.7500;
+			map.setView([lat, lng], 11);
+		}
+	});
+
+	Views.Add = Backbone.View.extend({
+		template: 'bookings/add',
+		events: {
+			'submit': 'save',
+			'focusin': 'highlight',
+			'focusout': 'deselect',
+			'click .insert': 'stop'
+		},
+		highlight: function (event) {
+			$(event.target).closest('label').addClass('active');
+		},
+		deselect: function (event) {
+			$(event.target).closest('label').removeClass('active');
+		},
+		stop: function (event) {
+			event.preventDefault();
+		},
+		save: function (event) {
+			event.preventDefault();
+			var that = this;
+			var stops = this.$el.find('.route input')
+				.map(function (index, element) {
+					return $(this).val().trim();
+				})
+				.filter(function (index, value) {
+					return !!value;
+				})
+				.get();
+			var value = function (selector) {
+				return that.$el.find(selector).val().trim();
+			};
+			var full_name = value('.passenger .name input');
+			var passenger = new Passengers.Models.Passenger({});
+			passenger.save({
+				networks: [app.defaultNetwork],
+				first_name: full_name.split(/\s+/).shift(),
+				last_name: full_name.split(/\s+/).slice(1).join(' '),
+				phone: value('.passenger .phone input'),
+				email: value('.passenger .email input')
+			}, {
+				success: function () {
+					var booking = new Models.Booking({});
+					booking.save({
+						passenger: passenger.get('resource_uri'),
+						pickup_time: value('.datetime .pickup input'),
+						dropoff_time: value('.datetime .dropoff input'),
+						special_instructions: value('.extras .note textarea'),
+						network: app.defaultNetwork,
+						route: stops
+					}, {
+						success: function () {
+							app.router.navigate('bookings/schedule', {
+								trigger: true,
+								replace: true
+							});
+						},
+						error: function () {}
+					});
+				},
+				error: function () {}
+			});
 		}
 	});
 

@@ -1,11 +1,13 @@
 define([
 	'jquery', 'underscore', 'backbone', 'app',
+	'modules/Authentication',
 	'modules/Bookings',
 	'modules/Geocodes',
 	'modules/Layouts',
 	'modules/Locations'
 ], function (
 	$, _, Backbone, app,
+	Authentication,
 	Bookings,
 	Geocodes,
 	Layouts,
@@ -15,15 +17,17 @@ define([
 
 		routes: {
 			'': 'splash',
-			'login': 'login',
 			'menu': 'menu',
 			'drivers/network': 'network',
 			'account/welcome': 'setup',
+			'login': 'login',
+			'login/pin/:cnonce/:country/:phone': 'pin',
 			'bookings/add': 'add',
 			'bookings/current': 'current',
 			'bookings/assigned': 'assigned',
 			'bookings/schedule': 'schedule',
 			'bookings/available': 'available',
+			'bookings/available/:id': 'scheduled',
 			'bookings/available/current': 'availableCurrent',
 			'bookings/available/advanced': 'availableAdvanced',
 			'bookings/available/map': 'availableMap',
@@ -47,6 +51,19 @@ define([
 		login: function () {
 			app.useLayout(Layouts.Views.Login, {
 			}).setViews({
+				'article': new Authentication.Views.Login({
+				})
+			}).render();
+		},
+
+		pin: function (cnonce, country, phone) {
+			app.useLayout(Layouts.Views.Pin, {
+			}).setViews({
+				'article': new Authentication.Views.Pin({
+					cnonce: cnonce,
+					country: country,
+					phone: phone
+				})
 			}).render();
 		},
 
@@ -70,6 +87,13 @@ define([
 
 		add: function () {
 			app.useLayout(Layouts.Views.Add, {
+			}).setViews({
+				'article': new Bookings.Views.Add()
+			}).render();
+		},
+
+		details: function () {
+			app.useLayout(Layouts.Views.Details, {
 			}).setViews({
 			}).render();
 		},
@@ -102,6 +126,17 @@ define([
 				trigger: true,
 				replace: true
 			});
+		},
+
+		scheduled: function (id) {
+			var booking = new Bookings.Models.Details({id: id});
+			app.useLayout(Layouts.Views.Scheduled, {
+			}).setViews({
+				'article': new Bookings.Views.Details({
+					model: booking
+				})
+			}).render();
+			booking.fetch();
 		},
 
 		availableCurrent: function () {
