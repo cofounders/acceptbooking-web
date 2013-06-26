@@ -431,22 +431,29 @@ define(['jquery', 'underscore', 'backbone', 'app',
 		},
 		save: function (event) {
 			event.preventDefault();
+			var stops = this.$el.find('.route input')
+				.map(function (index, element) {
+					return $(this).val();
+				})
+				.filter(function (index, value) {
+					return !!value;
+				})
+				.get();
+			var that = this;
+			var value = function (selector) {
+				return that.$el.find(selector).val();
+			};
 			var booking = new Models.Booking({});
 			booking.save({
-				name: this.$el.find('.passenger .name input').val(),
-				phone: this.$el.find('.passenger .phone input').val(),
-				email: this.$el.find('.passenger .email input').val(),
-				pickup: this.$el.find('.datetime .pickup input').val(),
-				dropoff: this.$el.find('.datetime .dropoff input').val(),
-				route: this.$el.find('.route input')
-					.map(function (index, element) {
-						return $(this).val();
-					})
-					.filter(function (index, value) {
-						return !!value;
-					})
-					.get(),
-				note: this.$el.find('.extras .note textarea').val()
+				passenger: {
+					full_name: value('.passenger .name input'),
+					phone: value('.passenger .phone input'),
+					email: value('.passenger .email input')
+				},
+				pickup_time: value('.datetime .pickup input'),
+				dropoff_time: value('.datetime .dropoff input'),
+				special_instructions: value('.extras .note textarea'),
+				route: stops
 			}, {
 				success: function () {
 					app.router.navigate('bookings/schedule', {

@@ -201,7 +201,7 @@ function ($, _, Backbone, app,
 			},
 			after: {
 				label: 'Save',
-				href: '/bookings/details'
+				submit: 'booking'
 			}
 		},
 		footer: false
