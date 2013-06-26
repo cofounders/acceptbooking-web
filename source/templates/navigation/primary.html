@@ -1,43 +1,73 @@
 <nav class="navigation primary">
 	{{#before}}
-	<a
+
+		{{#if submit}}
+		<button
+			type="submit"
+			form="{{submit}}"
+		{{/if}}
+
 		{{#if href}}
+		<a
 			href="{{href}}"
 		{{/if}}
 
-		{{#if direction}}
-			rel="{{direction}}"
+			{{#if direction}}
+				rel="{{direction}}"
+			{{/if}}
+
+			{{#if icon}}
+				class="{{type}} icon"
+			{{/if}}
+		>
+			{{#if label}}
+				{{label}}
+			{{/if}}
+
+		{{#if href}}
+		</a>
 		{{/if}}
 
-		{{#if icon}}
-			class="{{type}} icon"
+		{{#if submit}}
+		</button>
 		{{/if}}
-	>
-		{{#if label}}
-			{{label}}
-		{{/if}}
-	</a>
+
 	{{/before}}
 
 	<h1>{{title}}</h1>
 
 	{{#after}}
-	<a
+
+		{{#if submit}}
+		<button
+			type="submit"
+			form="{{submit}}"
+		{{/if}}
+
 		{{#if href}}
+		<a
 			href="{{href}}"
 		{{/if}}
 
-		{{#if direction}}
-			rel="{{direction}}"
+			{{#if direction}}
+				rel="{{direction}}"
+			{{/if}}
+
+			{{#if icon}}
+				class="{{type}} icon"
+			{{/if}}
+		>
+			{{#if label}}
+				{{label}}
+			{{/if}}
+
+		{{#if href}}
+		</a>
 		{{/if}}
 
-		{{#if icon}}
-			class="{{type}} icon"
+		{{#if submit}}
+		</button>
 		{{/if}}
-	>
-		{{#if label}}
-			{{label}}
-		{{/if}}
-	</a>
+
 	{{/after}}
 </nav>

@@ -1,5 +1,6 @@
 #app .navigation.primary
-	a
+	a,
+	button
 		border-image-source url('/img/btn-square-bg.png')
 		border-image-slice 8 15 6 15
 		border-width 4px 7.5px 3px 7.5px
@@ -22,20 +23,21 @@
 		font-size 12px
 		font-weight 800
 		text-decoration none
-	h1 ~ a
+	h1 ~ a,
+	h1 ~ button
 		left auto
 		right 5px
-	a[rel=prev] /* Use rel="next" to show a pointer to the left */
+	[rel=prev] /* Use rel="next" to show a pointer to the left */
 		border-image-source url('/img/btn-arrow-bg.png')
 		border-image-slice 8 11 8 30
 		border-width 4px 5.5px 4px 15px
 		padding 0 7px 0 3px
-	a[rel=next] /* Use rel="next" to show a pointer to the right */
+	[rel=next] /* Use rel="next" to show a pointer to the right */
 		border-image-source url('/img/btn-arrow-right-bg.png')
 		border-image-slice 8 30 8 11
 		border-width 4px 15px 4px 5.5px
 		padding 0 3px 0 7px
-	a.icon
+	.icon
 		color transparent
 		font-size 0
 		background-clip content-box, padding-box

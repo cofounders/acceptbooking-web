@@ -211,8 +211,36 @@ function ($, _, Backbone, app,
 		template: 'layouts/details'
 	});
 
-	Views.Login = Views.Base.extend({
-		template: 'layouts/login'
+	Views.Login = Views.Navigation.extend({
+		template: 'layouts/login',
+		header: {
+			title: 'Phone Number'
+		},
+		controls: {
+			after: {
+				label: 'Done',
+				submit: 'login'
+			}
+		},
+		footer: false
+	});
+
+	Views.Pin = Views.Navigation.extend({
+		template: 'layouts/pin',
+		header: {
+			title: 'Verification'
+		},
+		controls: {
+			before: {
+				label: 'Cancel',
+				href: '/login'
+			},
+			after: {
+				label: 'Done',
+				submit: 'pin'
+			}
+		},
+		footer: false
 	});
 
 	Views.Setup = Views.Base.extend({
