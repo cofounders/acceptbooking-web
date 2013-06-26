@@ -1,0 +1,26 @@
+<form id="booking" class="bookings add">
+	<section class="passenger">
+		<h2>Passenger's details</h2>
+		<div class="split">
+			<label class="name"><input type="text" placeholder="Name" value="Sebastiaan Deckers" /></label>
+			<label class="phone"><input type="tel" placeholder="Phone" value="+6597734121"  /></label>
+		</div>
+		<label class="email"><input type="email" placeholder="E-mail" value="seb@ninja.sg" /></label>
+	</section>
+	<section class="datetime">
+		<h2>Date & time</h2>
+		<label class="pickup"><input type="datetime-local" placeholder="Pickup Time" value="2013-06-27T09:15" /></label>
+		<label class="dropoff"><input type="datetime-local" placeholder="Dropoff Time (optional)" value="2013-06-27T17:00" /></label>
+	</section>
+	<section class="route">
+		<h2>Pickup & dropoff locations</h2>
+		<label class="pickup"><input type="text" placeholder="Pickup Address" value="60D Kallang Pudding Road" /></label>
+		<label class="stop"><input type="text" placeholder="Additional Stop (optional)" value="834 Sims Ave" /></label>
+		<label class="dropoff"><input type="text" placeholder="Dropoff Address (optional)" value="3A Jalan Terusan" /></label>
+		<button class="insert">Add a stop</button>
+	</section>
+	<section class="extras">
+		<h2>Extras</h2>
+		<label class="note"><textarea placeholder="Additional Information (optional)">Pronto!</textarea></label>
+	</section>
+</form>

@@ -4,7 +4,7 @@ define(
 	'app',
 	'router',
 	'templates.built',
-	'modules/Session/Base',
+	'modules/Session/Phone',
 	'modules/Notifications',
 	'helpers/currency',
 	'fastclick'
@@ -54,16 +54,21 @@ function (
 		app.router.navigate('/', {trigger: true});
 	});
 
-	Backbone.history.start({
-		pushState: true,
-		root: app.root
-	});
+	var onReady = function () {
+		Backbone.history.start({
+			pushState: true,
+			root: app.root
+		});
+	};
 
-	$(document).ajaxError(function (event, request, settings, exception) {
-		if (+request.status === 403 && settings.url.indexOf(app.api) !== -1) {
-			// app.session.signOut();
-			console.log('AJAX Error', exception);
-		}
+	app.session.getAuthStatus({
+		error: function () {
+			if (location.pathname !== '/login') {
+				history.pushState(null, '', '/login');
+			}
+			onReady();
+		},
+		success: onReady
 	});
 
 	$(document).on('click', 'a:not([data-bypass])', function (event) {
