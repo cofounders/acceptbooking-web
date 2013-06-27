@@ -25,7 +25,7 @@ define(['jquery', 'underscore', 'backbone', 'app',
 
 	Models.Details = Models.Booking.extend({
 		url: function () {
-			return app.api('bookings/:id', this);
+			return app.api(this.get('resource_uri'));
 		}
 	});
 
@@ -217,7 +217,7 @@ define(['jquery', 'underscore', 'backbone', 'app',
 					return _.extend(booking, {
 						active: isActive(booking),
 						link: url(
-							that.options.link || '/bookings/details/:id',
+							that.options.link,
 							booking
 						),
 						time: moment(booking.pickup_time).format('HH:MM')
