@@ -2,12 +2,14 @@ define(['jquery', 'underscore', 'backbone', 'app',
 	'constants',
 	'leaflet',
 	'moment',
+	'libs/url',
 	'modules/Geocodes',
 	'modules/Passengers'
 ], function ($, _, Backbone, app,
 	constants,
 	L,
 	moment,
+	url,
 	Geocodes,
 	Passengers
 ) {
@@ -200,20 +202,28 @@ define(['jquery', 'underscore', 'backbone', 'app',
 
 	Views.List = Backbone.View.extend({
 		template: 'bookings/list',
-		initialize: function () {
+		initialize: function (options) {
 			this.listenTo(this.collection, 'sync', this.render);
+			this.options = options || {};
 		},
 		serialize: function () {
+			var that = this;
 			var isActive = function (booking) {
 				return booking.status === constants.BOOKING.STATUS.ACTIVE;
 			};
 			var bookings = _.map(
 				this.collection.toJSON(),
 				function (booking) {
-					booking.active = isActive(booking);
-					booking.time = moment(booking.pickup_time).format('HH:MM');
-					return booking;
-				});
+					return _.extend(booking, {
+						active: isActive(booking),
+						link: url(
+							that.options.link || '/bookings/details/:id',
+							booking
+						),
+						time: moment(booking.pickup_time).format('HH:MM')
+					});
+				}
+			);
 			var trimDay = function (booking) {
 				return moment(booking.pickup_time).format('YYYY-MM-DD');
 			};

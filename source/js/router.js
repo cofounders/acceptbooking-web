@@ -26,8 +26,8 @@ define([
 			'bookings/current': 'current',
 			'bookings/assigned': 'assigned',
 			'bookings/schedule': 'schedule',
+			'bookings/schedule/:id': 'scheduled',
 			'bookings/available': 'available',
-			'bookings/available/:id': 'scheduled',
 			'bookings/available/current': 'availableCurrent',
 			'bookings/available/advanced': 'availableAdvanced',
 			'bookings/available/map': 'availableMap',
@@ -115,6 +115,7 @@ define([
 			app.useLayout(Layouts.Views.Schedule, {
 			}).setViews({
 				'article > #bookings-list': new Bookings.Views.List({
+					link: '/bookings/schedule/:id',
 					collection: bookings
 				})
 			}).render();

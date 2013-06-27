@@ -5,7 +5,7 @@
 		<ol>
 			{{#each bookings}}
 			<li {{#if active}} class="active" {{/if}}>
-				<a href="/bookings/details/{{id}}">
+				<a href="{{link}}">
 					<aside>
 						{{#if time}}<span class="time">{{time}}</span>{{/if}}
 						{{#if until}}<span class="until"><i>to</i> {{until}}</span>{{/if}}
