@@ -110,21 +110,21 @@
 					background-image url('/img/booking-details/icn-time-white.png')
 		&.route
 			position relative
-			.pickup
-				&:before
-					background-image url('/img/booking-details/icn-pickup.png')
-				&.active:before
-					background-image url('/img/booking-details/icn-pickup-white.png')
-			.stop
+			> label
 				&:before
 					background-image url('/img/booking-details/icn-stop.png')
 				&.active:before
 					background-image url('/img/booking-details/icn-stop-white.png')
-			.dropoff
+			> label:last-of-type
 				&:before
 					background-image url('/img/booking-details/icn-dropoff.png')
 				&.active:before
 					background-image url('/img/booking-details/icn-dropoff-white.png')
+			> label:first-of-type
+				&:before
+					background-image url('/img/booking-details/icn-pickup.png')
+				&.active:before
+					background-image url('/img/booking-details/icn-pickup-white.png')
 			button
 				border none
 				position absolute
