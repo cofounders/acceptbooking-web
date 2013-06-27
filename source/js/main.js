@@ -54,21 +54,9 @@ function (
 		app.router.navigate('/', {trigger: true});
 	});
 
-	var onReady = function () {
-		Backbone.history.start({
-			pushState: true,
-			root: app.root
-		});
-	};
-
-	app.session.getAuthStatus({
-		error: function () {
-			if (location.pathname !== '/login') {
-				history.pushState(null, '', '/login');
-			}
-			onReady();
-		},
-		success: onReady
+	Backbone.history.start({
+		pushState: true,
+		root: app.root
 	});
 
 	$(document).on('click', 'a:not([data-bypass])', function (event) {
