@@ -26,6 +26,9 @@ define(['jquery', 'underscore', 'backbone', 'app',
 	Models.Details = Models.Booking.extend({
 		url: function () {
 			return app.api(this.get('resource_uri'));
+		},
+		parse: function (response) {
+			return response;
 		}
 	});
 
@@ -434,6 +437,7 @@ define(['jquery', 'underscore', 'backbone', 'app',
 		template: 'bookings/details',
 		initialize: function (options) {
 			this.options = options;
+			this.listenTo(this.model, 'change', this.render);
 		},
 		serialize: function () {
 			return this.model.toJSON();
