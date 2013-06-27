@@ -26,8 +26,8 @@ define([
 			'bookings/current': 'current',
 			'bookings/assigned': 'assigned',
 			'bookings/schedule': 'schedule',
+			'bookings/schedule/:id': 'scheduled',
 			'bookings/available': 'available',
-			'bookings/available/:id': 'scheduled',
 			'bookings/available/current': 'availableCurrent',
 			'bookings/available/advanced': 'availableAdvanced',
 			'bookings/available/map': 'availableMap',
@@ -115,6 +115,7 @@ define([
 			app.useLayout(Layouts.Views.Schedule, {
 			}).setViews({
 				'article > #bookings-list': new Bookings.Views.List({
+					link: '/bookings/schedule/:resource_uri',
 					collection: bookings
 				})
 			}).render();
@@ -128,8 +129,10 @@ define([
 			});
 		},
 
-		scheduled: function (id) {
-			var booking = new Bookings.Models.Details({id: id});
+		scheduled: function (resource_uri) {
+			var booking = new Bookings.Models.Details({
+				resource_uri: resource_uri
+			});
 			app.useLayout(Layouts.Views.Scheduled, {
 			}).setViews({
 				'article': new Bookings.Views.Details({

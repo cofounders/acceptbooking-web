@@ -11,7 +11,9 @@ define([
 ) {
 	var app = _.extend({
 
-		defaultNetwork: '/api/v1/networks/1/',
+		defaultNetwork: '/api/v1/networks/1',
+
+		apiBasePath: '/api',
 
 		el: '#app',
 
@@ -20,12 +22,20 @@ define([
 		constants: constants,
 
 		api: function (endpoint, fields, data) {
-			var apiBasePath = '/api/api/v1';
-			var hasSlash = /\/$/.test(apiBasePath) || /^\//.test(endpoint);
-			if (!hasSlash) {
-				apiBasePath += '/';
+			var path = this.apiBasePath;
+
+			var hasVersion = /\/?api\/v1/.test(endpoint);
+			if (!hasVersion) {
+				path += '/api/v1';
 			}
-			var path = apiBasePath + endpoint;
+
+			var hasSlash = /\/$/.test(path) || /^\//.test(endpoint);
+			if (!hasSlash) {
+				path += '/';
+			}
+
+			path += endpoint;
+
 			return url(path, _.clone(fields), _.defaults({
 				format: 'json'
 			}, data));
