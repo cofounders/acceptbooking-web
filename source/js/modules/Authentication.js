@@ -85,7 +85,7 @@ define(['jquery', 'underscore', 'backbone', 'app'
 					this.options.phone,
 				pin: pin,
 				success: function () {
-					app.router.navigate('/bookings/schedule', {
+					app.router.navigate('bookings/schedule', {
 						trigger: true
 					});
 				},

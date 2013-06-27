@@ -43,8 +43,20 @@ define([
 				app.useLayout(Layouts.Views.Install, {
 				}).render();
 			} else {
-				app.useLayout(Layouts.Views.Splash, {
-				}).render();
+				app.session.getAuthStatus({
+					success: function () {
+						app.router.navigate('bookings/schedule', {
+							trigger: true,
+							replace: true
+						});
+					},
+					error: function () {
+						app.router.navigate('login', {
+							trigger: true,
+							replace: true
+						});
+					}
+				});
 			}
 		},
 
