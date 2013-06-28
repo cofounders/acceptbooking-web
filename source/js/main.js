@@ -7,6 +7,7 @@ define(
 	'modules/Session/Phone',
 	'modules/Notifications',
 	'helpers/currency',
+	'helpers/moment',
 	'fastclick'
 ],
 function (
@@ -16,7 +17,8 @@ function (
 	templatesBuilt,
 	Session,
 	Notifications,
-	currency,
+	currencyHelper,
+	momentHelper,
 	FastClick
 ) {
 	var JST = window.JST = _.extend(window.JST || {}, templatesBuilt);
@@ -43,7 +45,8 @@ function (
 		FastClick.attach(document.body);
 	});
 
-	Handlebars.registerHelper('$', currency);
+	Handlebars.registerHelper('$', currencyHelper);
+	Handlebars.registerHelper('moment', momentHelper);
 
 	app.router = new Router();
 
