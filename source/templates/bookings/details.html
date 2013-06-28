@@ -1,25 +1,49 @@
 <div class="bookings details">
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
+
 	<section id="map"></section>
+
+	{{#with passenger}}
 	<section class="passenger">
-		<div class="name">Willy Winka</div>
-		<a class="phone" href="callto:+6590123456">9012 3456</a>
+		{{#if full_name}}
+		<div class="name">{{full_name}}</div>
+		{{/if}}
+
+		{{#if phone}}
+		<a class="phone" href="callto:{{phone}}">{{phone}}</a>
+		{{/if}}
 	</section>
+	{{/with}}
+
 	<section class="datetime">
-		<div class="pickup">Now</div>
-		<div class="dropoff">15:30 - Today, 15 June</div>
+		{{#if pickup_time}}
+		<div class="pickup">{{{moment pickup_time format="H:mm [&mdash;] dddd Do MMM, YYYY"}}}</div>
+		{{/if}}
+
+		{{#if dropoff_time}}
+		<div class="dropoff">{{{moment dropoff_time format="H:mm [&mdash;] dddd Do MMM, YYYY"}}}</div>
+		{{/if}}
 	</section>
+
+	{{#if connection_type}}
 	<section class="connection">
-		<div class="train">NE 1949</div>
+		<div class="train" data-connection-type="{{connection_type}}">{{connection}}</div>
 	</section>
+	{{/if}}
+
+	{{#if route}}
 	<section class="route">
-		<a class="pickup" href="/bookings/map">Farrer Park MRT, Taxi Stand</a>
-		<a class="stop" href="/bookings/map">Bugis Village, Taxi Stand</a>
-		<a class="dropoff" href="/bookings/map">NEX Shopping Center, Taxi Stand</a>
+		{{#each route}}
+		<a href="/bookings/map/stop/{{location.coordinates.[0]}}/{{location.coordinates.[1]}}">{{formatted_address}}</a>
+		{{/each}}
 	</section>
+	{{/if}}
+
+	{{#if special_instructions}}
 	<section class="extras">
 		<div class="note">
 			{{special_instructions}}
 		</div>
 	</section>
+	{{/if}}
 </div>
