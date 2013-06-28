@@ -235,14 +235,6 @@ function ($, _, Backbone, app,
 		footer: false
 	});
 
-	Views.Setup = Views.Base.extend({
-		template: 'layouts/setup'
-	});
-
-	Views.Current = Views.Base.extend({
-		template: 'layouts/current'
-	});
-
 	return {
 		Models: Models,
 		Collections: Collections,

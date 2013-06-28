@@ -19,11 +19,9 @@ define([
 			'': 'splash',
 			'menu': 'menu',
 			'drivers/network': 'network',
-			'account/welcome': 'setup',
 			'login': 'login',
 			'login/pin/:cnonce/:country/:phone': 'pin',
 			'bookings/add': 'add',
-			'bookings/current': 'current',
 			'bookings/assigned': 'assigned',
 			'bookings/schedule': 'schedule',
 			'bookings/schedule/:id': 'scheduled',
@@ -91,12 +89,6 @@ define([
 			}).render();
 		},
 
-		setup: function () {
-			app.useLayout(Layouts.Views.Setup, {
-			}).setViews({
-			}).render();
-		},
-
 		add: function () {
 			app.useLayout(Layouts.Views.Add, {
 			}).setViews({
@@ -106,12 +98,6 @@ define([
 
 		details: function () {
 			app.useLayout(Layouts.Views.Details, {
-			}).setViews({
-			}).render();
-		},
-
-		current: function () {
-			app.useLayout(Layouts.Views.Current, {
 			}).setViews({
 			}).render();
 		},
@@ -128,6 +114,27 @@ define([
 			}).setViews({
 				'article > #bookings-list': new Bookings.Views.List({
 					link: '/bookings/schedule/:resource_uri',
+					collection: bookings
+				})
+			}).render();
+			bookings.fetch();
+		},
+
+		availableCurrent: function () {
+			var bookings = new Bookings.Collections.Current();
+			app.useLayout(Layouts.Views.AvailableCurrent, {
+			}).setViews({
+				'article': new Bookings.Views.AvailableCurrent({
+					collection: bookings
+				})
+			}).render();
+		},
+
+		availableAdvanced: function () {
+			var bookings = new Bookings.Collections.Advanced();
+			app.useLayout(Layouts.Views.AvailableAdvanced, {
+			}).setViews({
+				'article': new Bookings.Views.AvailableAdvanced({
 					collection: bookings
 				})
 			}).render();
@@ -152,27 +159,6 @@ define([
 				})
 			}).render();
 			booking.fetch();
-		},
-
-		availableCurrent: function () {
-			var bookings = new Bookings.Collections.Current();
-			app.useLayout(Layouts.Views.AvailableCurrent, {
-			}).setViews({
-				'article': new Bookings.Views.AvailableCurrent({
-					collection: bookings
-				})
-			}).render();
-		},
-
-		availableAdvanced: function () {
-			var bookings = new Bookings.Collections.Advanced();
-			app.useLayout(Layouts.Views.AvailableAdvanced, {
-			}).setViews({
-				'article': new Bookings.Views.AvailableAdvanced({
-					collection: bookings
-				})
-			}).render();
-			bookings.fetch();
 		},
 
 		availableMap: function (lat, lng, address) {
