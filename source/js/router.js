@@ -120,26 +120,6 @@ define([
 			bookings.fetch();
 		},
 
-		available: function () {
-			this.navigate('bookings/available/current', {
-				trigger: true,
-				replace: true
-			});
-		},
-
-		scheduled: function (resource_uri) {
-			var booking = new Bookings.Models.Details({
-				resource_uri: resource_uri
-			});
-			app.useLayout(Layouts.Views.Scheduled, {
-			}).setViews({
-				'article': new Bookings.Views.Details({
-					model: booking
-				})
-			}).render();
-			booking.fetch();
-		},
-
 		availableCurrent: function () {
 			var bookings = new Bookings.Collections.Current();
 			app.useLayout(Layouts.Views.AvailableCurrent, {
@@ -159,6 +139,26 @@ define([
 				})
 			}).render();
 			bookings.fetch();
+		},
+
+		available: function () {
+			this.navigate('bookings/available/current', {
+				trigger: true,
+				replace: true
+			});
+		},
+
+		scheduled: function (resource_uri) {
+			var booking = new Bookings.Models.Details({
+				resource_uri: resource_uri
+			});
+			app.useLayout(Layouts.Views.Scheduled, {
+			}).setViews({
+				'article': new Bookings.Views.Details({
+					model: booking
+				})
+			}).render();
+			booking.fetch();
 		},
 
 		availableMap: function (lat, lng, address) {

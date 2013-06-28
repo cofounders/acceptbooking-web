@@ -32,147 +32,6 @@ define(['jquery', 'underscore', 'backbone', 'app',
 		}
 	});
 
-	var dummyBookings = function () {
-		var bookings = [
-			{
-				route: [
-					{name: '1 Marina Boulevard'},
-					{name: 'East Coast Park Rd'}
-				],
-				date: 'Today - 2013-06-12',
-				active: true,
-				time: '10:45'
-			}, {
-				route: [
-					{name: '3A Jalan Terusan'},
-					{name: 'Redhill MRT'},
-					{name: 'Clarke Quay MRT'}
-				],
-				date: 'Today - 2013-06-12',
-				active: false,
-				time: '18:00'
-			}, {
-				route: [
-					{name: '834 Sims Ave'},
-					{name: 'Kallang Pudding Road'},
-					{name: '122C Sengkang East Way'}
-				],
-				date: 'Tomorrow - 2013-06-13',
-				active: false,
-				time: '12:15'
-			}, {
-				route: [
-					{name: '834 Sims Ave'},
-					{name: 'Kallang Pudding Road'},
-					{name: '122C Sengkang East Way'}
-				],
-				date: 'Tomorrow - 2013-06-13',
-				active: false,
-				time: '12:15'
-			}, {
-				route: [
-					{name: '834 Sims Ave'},
-					{name: 'Kallang Pudding Road'},
-					{name: '122C Sengkang East Way'}
-				],
-				date: 'Tomorrow - 2013-06-13',
-				active: false,
-				time: '12:15'
-			}, {
-				route: [
-					{name: '834 Sims Ave'},
-					{name: 'Kallang Pudding Road'},
-					{name: '122C Sengkang East Way'}
-				],
-				date: 'Tomorrow - 2013-06-13',
-				active: false,
-				time: '12:15'
-			}, {
-				route: [
-					{name: '834 Sims Ave'},
-					{name: 'Kallang Pudding Road'},
-					{name: '122C Sengkang East Way'}
-				],
-				date: 'Tomorrow - 2013-06-13',
-				active: false,
-				time: '12:15'
-			}, {
-				route: [
-					{name: '834 Sims Ave'},
-					{name: 'Kallang Pudding Road'},
-					{name: '122C Sengkang East Way'}
-				],
-				date: 'Tomorrow - 2013-06-13',
-				active: false,
-				time: '12:15'
-			}, {
-				route: [
-					{name: '834 Sims Ave'},
-					{name: 'Kallang Pudding Road'},
-					{name: '122C Sengkang East Way'}
-				],
-				date: 'Tomorrow - 2013-06-13',
-				active: false,
-				time: '12:15'
-			}, {
-				route: [
-					{name: '834 Sims Ave'},
-					{name: 'Kallang Pudding Road'},
-					{name: '122C Sengkang East Way'}
-				],
-				date: 'Tomorrow - 2013-06-13',
-				active: false,
-				time: '12:15'
-			}, {
-				route: [
-					{name: '834 Sims Ave'},
-					{name: 'Kallang Pudding Road'},
-					{name: '122C Sengkang East Way'}
-				],
-				date: 'Tomorrow - 2013-06-13',
-				active: false,
-				time: '12:15'
-			}, {
-				route: [
-					{name: '834 Sims Ave'},
-					{name: 'Kallang Pudding Road'},
-					{name: '122C Sengkang East Way'}
-				],
-				date: 'Tomorrow - 2013-06-13',
-				active: false,
-				time: '12:15'
-			}, {
-				route: [
-					{name: '834 Sims Ave'},
-					{name: 'Kallang Pudding Road'},
-					{name: '122C Sengkang East Way'}
-				],
-				date: 'Tomorrow - 2013-06-13',
-				active: false,
-				time: '12:15'
-			}, {
-				route: [
-					{name: '834 Sims Ave'},
-					{name: 'Kallang Pudding Road'},
-					{name: '122C Sengkang East Way'}
-				],
-				date: 'Tomorrow - 2013-06-13',
-				active: false,
-				time: '12:15'
-			}
-		];
-		_.each(bookings, function (booking) {
-			booking.id = Math.ceil(Math.random() * 50000);
-			_.each(booking.route, function (stop) {
-				var directionLng = Math.random() > 0.5 ? 1 : -1;
-				var directionLat = Math.random() > 0.5 ? 1 : -1;
-				stop.lng = 103.8000 + directionLng * (Math.random() * 0.15);
-				stop.lat = 1.3267 + directionLat * (Math.random() * 0.08);
-			});
-		});
-		return bookings;
-	};
-
 	Collections.Schedule = Backbone.Collection.extend({
 		model: Models.Booking,
 		url: function () {
@@ -185,7 +44,13 @@ define(['jquery', 'underscore', 'backbone', 'app',
 
 	Collections.Current = Collections.Schedule.extend({
 		url: function () {
-			return app.api('bookings/current/:lat/:lng/', this.options);
+			return app.api('bookings/', null, {
+				// lat: this.options.lat,
+				// lng: this.options.lng,
+				pickup_time__isnull: false,
+				// order_by: '-pickup_time',
+				status: constants.BOOKING.STATUS.OPEN
+			});
 		},
 		initialize: function (models, options) {
 			this.options = options || {};
@@ -199,34 +64,64 @@ define(['jquery', 'underscore', 'backbone', 'app',
 
 	Collections.Advanced = Collections.Schedule.extend({
 		url: function () {
-			return app.api('bookings/advanced/');
+			return app.api('bookings/', null, {
+				status: constants.BOOKING.STATUS.OPEN,
+				pickup_time__gt: (new Date()).toISOString()
+			});
 		}
 	});
 
 	Views.List = Backbone.View.extend({
 		template: 'bookings/list',
+		bookingOmitDetails: ['duration', 'distance', 'eta'],
 		initialize: function (options) {
 			this.listenTo(this.collection, 'sync', this.render);
 			this.options = options || {};
 		},
 		serialize: function () {
 			var that = this;
-			var isActive = function (booking) {
-				return booking.status === constants.BOOKING.STATUS.ACTIVE;
+			var setActive = function (booking) {
+				var active = constants.BOOKING.STATUS.ACTIVE;
+				booking.active = booking.status === active;
+				return booking;
 			};
-			var bookings = _.map(
-				this.collection.toJSON(),
-				function (booking) {
-					return _.extend(booking, {
-						active: isActive(booking),
-						link: url(
-							that.options.link,
-							booking
-						),
-						time: moment(booking.pickup_time).format('HH:MM')
-					});
+			var setLink = function (booking) {
+				booking.link = url(that.options.link, booking);
+				return booking;
+			};
+			var setGeo = function (booking) {
+				if (!that.collection.options ||
+					!that.collection.options.lat ||
+					!that.collection.options.lng
+				) {
+					return booking;
 				}
-			);
+
+				var coordinates = booking.route[0].location.coordinates;
+				var lat = coordinates[0];
+				var lng = coordinates[1];
+				var pickup = new L.LatLng(lat, lng);
+				var distance = pickup.distanceTo([
+					that.collection.options.lat,
+					that.collection.options.lng
+				]);
+				booking.distance = Math.ceil(distance / 1000);
+				booking.eta = '~' +
+					Math.ceil(2 + Math.random() * booking.distance) +
+					'min';
+				return booking;
+			};
+			var setDetails = function (booking) {
+				return _.omit(booking, that.bookingOmitDetails);
+			};
+
+			var bookings = _.chain(this.collection.toJSON())
+				.map(setActive)
+				.map(setLink)
+				.map(setGeo)
+				.map(setDetails)
+				.value();
+
 			var trimDay = function (booking) {
 				return moment(booking.pickup_time).format('YYYY-MM-DD');
 			};
@@ -235,7 +130,9 @@ define(['jquery', 'underscore', 'backbone', 'app',
 			var calendar = _.map(dates, function (date) {
 				return {
 					pretty: moment(date).format('dddd, MMMM Do'),
-					active: _.any(byDate[date], isActive),
+					active: _.any(byDate[date], function (booking) {
+						return booking.active;
+					}),
 					bookings: byDate[date]
 				};
 			});
@@ -252,45 +149,14 @@ define(['jquery', 'underscore', 'backbone', 'app',
 			if (list.calendar.length >= 1) {
 				var today = list.calendar[0];
 				today.pretty = 'Nearby booking requests';
-				_.each(today.bookings, function (booking) {
-					var coordinates = booking.route[0];
-					var pickup = new L.LatLng(
-						coordinates.lat,
-						coordinates.lng
-					);
-					var distance = pickup.distanceTo([
-						that.collection.options.lat,
-						that.collection.options.lng
-					]);
-					booking.distance = Math.ceil(distance / 1000);
-					booking.eta = '~' +
-						Math.ceil(2 + Math.random() * booking.distance) +
-						'min';
-					delete booking.time;
-				});
 			}
 			return list;
-		}
+		},
+		bookingOmitDetails: ['dropoff_time', 'duration']
 	});
 
 	Views.ListAdvanced = Views.List.extend({
-		serialize: function () {
-			var that = this;
-			var list = Views.List.prototype.serialize.apply(this, arguments);
-			_.each(list.calendar, function (day) {
-				_.each(day.bookings, function (booking) {
-					var chance = Math.random();
-					if (chance < 0.2) {
-						booking.duration = 'All day';
-					} else if (chance < 0.5) {
-						var hours = Math.round(4 + Math.random() * 20);
-						var minutes = 15 * Math.round(1 + Math.random() * 2);
-						booking.until = hours + ':' + minutes;
-					}
-				});
-			});
-			return list;
-		}
+		bookingOmitDetails: ['distance', 'eta']
 	});
 
 	Views.AvailableCurrent = Backbone.View.extend({
@@ -500,9 +366,15 @@ define(['jquery', 'underscore', 'backbone', 'app',
 				success: function () {
 					var booking = new Models.Booking({});
 					booking.save({
+						booking_type: constants.BOOKING.TYPE.TRANSFER,
+						status: constants.BOOKING.STATUS.OPEN,
 						passenger: passenger.get('resource_uri'),
-						pickup_time: value('.datetime .pickup input'),
-						dropoff_time: value('.datetime .dropoff input'),
+						pickup_time: (new Date(
+							value('.datetime .pickup input')
+						)).toISOString(),
+						dropoff_time: (new Date(
+							value('.datetime .dropoff input')
+						)).toISOString(),
 						special_instructions: value('.extras .note textarea'),
 						network: app.defaultNetwork,
 						route: stops
