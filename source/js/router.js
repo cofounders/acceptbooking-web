@@ -19,11 +19,9 @@ define([
 			'': 'splash',
 			'menu': 'menu',
 			'drivers/network': 'network',
-			'account/welcome': 'setup',
 			'login': 'login',
 			'login/pin/:cnonce/:country/:phone': 'pin',
 			'bookings/add': 'add',
-			'bookings/current': 'current',
 			'bookings/assigned': 'assigned',
 			'bookings/schedule': 'schedule',
 			'bookings/schedule/:id': 'scheduled',
@@ -91,12 +89,6 @@ define([
 			}).render();
 		},
 
-		setup: function () {
-			app.useLayout(Layouts.Views.Setup, {
-			}).setViews({
-			}).render();
-		},
-
 		add: function () {
 			app.useLayout(Layouts.Views.Add, {
 			}).setViews({
@@ -106,12 +98,6 @@ define([
 
 		details: function () {
 			app.useLayout(Layouts.Views.Details, {
-			}).setViews({
-			}).render();
-		},
-
-		current: function () {
-			app.useLayout(Layouts.Views.Current, {
 			}).setViews({
 			}).render();
 		},
