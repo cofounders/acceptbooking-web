@@ -262,15 +262,16 @@ define(['jquery', 'underscore', 'backbone', 'app',
 					var pickup = booking.get('route')[0];
 					var point = {
 						type: 'Point',
-						coordinates: [pickup.lng, pickup.lat]
+						coordinates: pickup.location.coordinates.reverse()
 					};
 					var feature = {
 						type: 'Feature',
 						id: booking.id,
 						geometry: point,
 						properties: {
-							name: pickup.name,
-							popupContent: booking.time
+							name: pickup.formatted_address,
+							popupContent: moment(booking.pickup_time)
+								.calendar()
 						}
 					};
 					return feature;
