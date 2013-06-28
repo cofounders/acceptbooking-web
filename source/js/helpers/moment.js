@@ -1,4 +1,5 @@
-define(['underscore', 'moment'], function (_, moment) {
+define(['underscore', 'handlebars', 'moment'],
+function (_, Handlebars, moment) {
 
 	return function (timestamp, options) {
 		if (!timestamp) {
