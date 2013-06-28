@@ -2,6 +2,10 @@ define(['underscore'], function (_) {
 
 	return function (url, fields, data, options) {
 
+		if (!_.isString(url)) {
+			url = '';
+		}
+
 		var config = _.extend({
 			slug: /:(\w+)/g,
 			separator: '+'

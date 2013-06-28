@@ -7,8 +7,8 @@
 			<li {{#if active}} class="active" {{/if}}>
 				<a href="{{link}}">
 					<aside>
-						{{#if time}}<span class="time">{{time}}</span>{{/if}}
-						{{#if until}}<span class="until"><i>to</i> {{until}}</span>{{/if}}
+						{{#if pickup_time}}<span class="time">{{{moment pickup_time format="HH:MM"}}}</span>{{/if}}
+						{{#if dropoff_time}}<span class="until"><i>to</i> {{{moment dropoff_time format="HH:MM"}}}</span>{{/if}}
 						{{#if duration}}<span class="duration"><b>{{duration}}</b></span>{{/if}}
 						{{#if distance}}<span class="distance">{{distance}}km</span>{{/if}}
 						{{#if eta}}<span class="eta">{{eta}}</span>{{/if}}
