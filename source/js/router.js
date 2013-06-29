@@ -24,7 +24,7 @@ define([
 			'bookings/add': 'add',
 			'bookings/assigned': 'assigned',
 			'bookings/schedule': 'schedule',
-			'bookings/schedule/:id': 'scheduled',
+			'bookings/details/:resource_uri': 'bookingDetails',
 			'bookings/available': 'available',
 			'bookings/available/current': 'availableCurrent',
 			'bookings/available/advanced': 'availableAdvanced',
@@ -96,12 +96,6 @@ define([
 			}).render();
 		},
 
-		details: function () {
-			app.useLayout(Layouts.Views.Details, {
-			}).setViews({
-			}).render();
-		},
-
 		assigned: function () {
 			app.useLayout(Layouts.Views.Assigned, {
 			}).setViews({
@@ -113,7 +107,6 @@ define([
 			app.useLayout(Layouts.Views.Schedule, {
 			}).setViews({
 				'article > #bookings-list': new Bookings.Views.List({
-					link: '/bookings/schedule/:resource_uri',
 					collection: bookings
 				})
 			}).render();
@@ -148,13 +141,16 @@ define([
 			});
 		},
 
-		scheduled: function (resource_uri) {
+		bookingDetails: function (resource_uri) {
 			var booking = new Bookings.Models.Details({
 				resource_uri: resource_uri
 			});
-			app.useLayout(Layouts.Views.Scheduled, {
+			app.useLayout(Layouts.Views.BookingDetails, {
 			}).setViews({
 				'article': new Bookings.Views.Details({
+					model: booking
+				}),
+				'footer': new Bookings.Views.Status({
 					model: booking
 				})
 			}).render();

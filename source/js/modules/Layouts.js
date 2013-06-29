@@ -112,8 +112,8 @@ function ($, _, Backbone, app,
 		scrollInitialY: 40
 	});
 
-	Views.Scheduled = Views.Navigation.extend({
-		template: 'layouts/scheduled',
+	Views.BookingDetails = Views.Navigation.extend({
+		template: 'layouts/bookingDetails',
 		header: {
 			title: 'Booking Details'
 		}
@@ -197,10 +197,6 @@ function ($, _, Backbone, app,
 			}
 		},
 		footer: false
-	});
-
-	Views.Details = Views.Navigation.extend({
-		template: 'layouts/details'
 	});
 
 	Views.Login = Views.Navigation.extend({
