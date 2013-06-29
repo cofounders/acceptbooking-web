@@ -86,7 +86,10 @@ define(['jquery', 'underscore', 'backbone', 'app',
 				return booking;
 			};
 			var setLink = function (booking) {
-				booking.link = url(that.options.link, booking);
+				booking.link = url(
+					'/bookings/details/:resource_uri',
+					booking
+				);
 				return booking;
 			};
 			var setGeo = function (booking) {
@@ -392,6 +395,38 @@ define(['jquery', 'underscore', 'backbone', 'app',
 				error: function () {}
 			});
 		}
+	});
+
+	Views.Status = Backbone.View.extend({
+		template: 'bookings/status',
+		serialize: function () {
+			return _.map(constants.BOOKING.STATUS, function (value, key) {
+				return value === this.model.get('status');
+			});
+			// return {
+			// 	status: _.chain(constants.BOOKING.STATUS)
+			// 		.pairs()
+			// 		.find(function (constant) {
+			// 			var value = constant[1];
+			// 			return value === status;
+			// 		})
+			// 		.value()[0]
+			// };
+		},
+		events: {
+			'click .accept': 'accept',
+			'click .dismiss': 'dismiss',
+			'click .cancel': 'cancel',
+			'click .start': 'start'
+		},
+		accept: function (event) {
+			this.model.save({
+				status: constants.BOOKING.STATUS.CONFIRMED
+			});
+		},
+		dismiss: function (event) {},
+		cancel: function (event) {},
+		start: function (event) {}
 	});
 
 	return {
