@@ -399,10 +399,21 @@ define(['jquery', 'underscore', 'backbone', 'app',
 
 	Views.Status = Backbone.View.extend({
 		template: 'bookings/status',
+		initialize: function (options) {
+			this.options = options;
+			this.listenTo(this.model, 'change', this.render);
+		},
 		serialize: function () {
-			return _.map(constants.BOOKING.STATUS, function (value, key) {
-				return value === this.model.get('status');
-			});
+			var status = this.model.get('status');
+			return _.chain(constants.BOOKING.STATUS)
+				.pairs()
+				.map(function (pair) {
+					var key = pair[0];
+					var value = pair[1];
+					return [key, value === status];
+				})
+				.object()
+				.value();
 		},
 		events: {
 			'click .accept': 'accept',
