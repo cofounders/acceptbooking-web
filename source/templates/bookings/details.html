@@ -17,11 +17,11 @@
 
 	<section class="datetime">
 		{{#if pickup_time}}
-		<div class="pickup">{{{moment pickup_time format="H:mm [&mdash;] dddd Do MMM, YYYY"}}}</div>
+		<div class="pickup">{{{moment pickup_time format="HH:mm [&mdash;] dddd Do MMMM, YYYY"}}}</div>
 		{{/if}}
 
 		{{#if dropoff_time}}
-		<div class="dropoff">{{{moment dropoff_time format="H:mm [&mdash;] dddd Do MMM, YYYY"}}}</div>
+		<div class="dropoff">{{{moment dropoff_time format="HH:mm [&mdash;] dddd Do MMMM, YYYY"}}}</div>
 		{{/if}}
 	</section>
 
@@ -41,9 +41,7 @@
 
 	{{#if special_instructions}}
 	<section class="extras">
-		<div class="note">
-			{{special_instructions}}
-		</div>
+		<div class="note">{{special_instructions}}</div>
 	</section>
 	{{/if}}
 </div>
