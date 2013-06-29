@@ -403,15 +403,6 @@ define(['jquery', 'underscore', 'backbone', 'app',
 			return _.map(constants.BOOKING.STATUS, function (value, key) {
 				return value === this.model.get('status');
 			});
-			// return {
-			// 	status: _.chain(constants.BOOKING.STATUS)
-			// 		.pairs()
-			// 		.find(function (constant) {
-			// 			var value = constant[1];
-			// 			return value === status;
-			// 		})
-			// 		.value()[0]
-			// };
 		},
 		events: {
 			'click .accept': 'accept',
