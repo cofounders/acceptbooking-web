@@ -102,13 +102,13 @@ define([
 			if (this.has('api_key')) {
 				this.destroy();
 				this.clear();
-				this.trigger('signOut');
 
 				if (options.trigger === false) {
 					var account = new Logout({}, {});
 					account.save();
 				}
 			}
+			this.trigger('signOut');
 			success();
 		},
 		getAuthStatus: function (options) {

@@ -1,17 +1,23 @@
 <nav class="bookings status">
 	{{#if OPEN}}
-	<button class="dismiss">Dismiss</button>
-	<button class="accept">Accept</button>
+	<form>
+		<button class="dismiss">Dismiss</button>
+		<button class="accept">Accept</button>
+	</form>
 	{{/if}}
 
 	{{#if CONFIRMED}}
-	<button class="cancel">Cancel</button>
-	<button class="start">Start Trip</button>
+	<form>
+		<button class="cancel">Cancel</button>
+		<button class="start">Start Trip</button>
+	</form>
 	{{/if}}
 
 	{{#if ACTIVE}}
-	<button class="cancel">Cancel</button>
-	<button class="completed">Completed</button>
+	<form>
+		<button class="cancel">Cancel</button>
+		<button class="completed">Completed</button>
+	</form>
 	{{/if}}
 
 	{{#if COMPLETED}}
