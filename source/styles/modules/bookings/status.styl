@@ -1,20 +1,68 @@
 #app .bookings.status
-	display flex
 	height 100%
-	padding 2.5px
-	box-sizing border-box
-	> button
+	> form
+		display flex
+		height 100%
+		padding 2.5px
 		box-sizing border-box
-		margin 2.5px
-		flex 1
-		appearance none
-		display block
+		> button
+			box-sizing border-box
+			margin 2.5px
+			flex 1
+			appearance none
+			display block
+			font-size 15px
+			font-weight 700
+			text-transform uppercase
+			border-radius 5px
+			border none
+			&:before
+				content ' '
+				display inline-block
+				vertical-align middle
+				margin 0 15px 0 0
+				background-repeat no-repeat
+				background-position center
+			&.accept,
+			&.start,
+			&.completed
+				color #fff
+				box-shadow inset 1px 1px 1px rgba(255, 255, 255, 0.7),
+					inset 0 0 1px #2b8399
+				background-image linear-gradient(bottom, #0373a2 0%, #56cbe8 100%)
+				&:before
+					width 15.5px
+					height 10.5px
+					background-image url('/img/icn-accept.png')
+					background-size 15.5px auto
+			&.dismiss
+				color #666
+				box-shadow inset 1px 1px 1px rgba(255, 255, 255, 0.7),
+					inset 0 0 1px #ccc
+				background-image linear-gradient(bottom, #ccc 0%, #f6f6f6 100%)
+				&:before
+					width 15.5px
+					height 15.5px
+					background-image url('/img/icn-dismiss.png')
+					background-size 15.5px auto
+			&.cancel
+				color #fff
+				box-shadow inset 1px 1px 1px rgba(255, 255, 255, 0.7),
+					inset 0 0 1px #a80d0d
+				background-image linear-gradient(bottom, #970000 0%, #ef0000 100%)
+				&:before
+					width 15.5px
+					height 15.5px
+					background-image url('/img/icn-dismiss.png')
+					background-size 15.5px auto
+	> div
+		color #fff
 		font-size 15px
 		font-weight 700
 		text-transform uppercase
-		border-radius 5px
-		border none
-		box-shadow inset 1px 1px 1px rgba(255, 255, 255, 0.7),
-			inset 0 0 1px #2b8399
-		background-image linear-gradient(bottom, #0373a2 0%, #56cbe8 100%)
-		color #fff
+		text-align center
+		padding 1em
+		&.completed
+			background-image linear-gradient(bottom, #0373a2 0%, #56cbe8 100%)
+		&.cancelled
+			background-image linear-gradient(bottom, #970000 0%, #ef0000 100%)
